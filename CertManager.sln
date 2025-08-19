@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Host", "CertManager.Host\CertManager.Host.csproj", "{E106F4A8-E6B8-4809-8B9E-2E89DDF17AB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.HttpApi.Host", "CertManager.HttpApi.Host\CertManager.HttpApi.Host.csproj", "{E106F4A8-E6B8-4809-8B9E-2E89DDF17AB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Domain.Shared", "CertManager.Domain.Shared\CertManager.Domain.Shared.csproj", "{A97D7331-8DE5-4614-AA3B-F94906C21B96}"
 EndProject

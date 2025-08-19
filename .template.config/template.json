@@ -52,14 +52,14 @@
     "IncludeSampleCode": {
       "type": "parameter",
       "datatype": "bool",
-      "defaultValue": "false",
+      "defaultValue": "true",
       "description": "Include sample entities and services"
     },
     "skipRestore": {
       "type": "parameter",
       "datatype": "bool",
       "description": "Skip restore of packages on project creation",
-      "defaultValue": "false"
+      "defaultValue": "true"
     }
   },
   "sources": [
