@@ -50,7 +50,14 @@ public static class HttpApiExtensions
     {
         app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
         app.UseCors(DefaultCorsPolicy);
-        app.UseFastEndpoints(conf => { conf.Endpoints.RoutePrefix = "/api"; });
+        app.UseRouting();
+        app.UseEndpoints(e =>
+        {
+            e.MapFastEndpoints(conf =>
+            {
+                conf.Endpoints.RoutePrefix = "api";
+            });
+        });
         return app;
     }
 }

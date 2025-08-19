@@ -40,6 +40,12 @@ try
     builder.Services.AddApplication();
     builder.Services.AddHttpApi(builder.Configuration);
     
+    // Add SPA static files
+    builder.Services.AddSpaStaticFiles(configuration =>
+    {
+        configuration.RootPath = "ClientApp/dist";
+    });
+    
     var app = builder.Build();
     
     if(app.Environment.IsDevelopment())
@@ -65,7 +71,25 @@ try
     });
     
     app.UseHttpsRedirection();
+    app.UseStaticFiles();
+    
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseSpaStaticFiles();
+    }
     app.UseHttpApi();
+    app.UseSpa(spa =>
+    {
+        spa.Options.SourcePath = "ClientApp";
+        
+        if (app.Environment.IsDevelopment())
+        {
+            // Use the Angular CLI development server
+            // spa.UseAngularCliServer(npmScript: "start");
+            // Or use proxy to external Angular dev server (faster for development)
+            spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+        }
+    });
     
     app.Run();
 }
