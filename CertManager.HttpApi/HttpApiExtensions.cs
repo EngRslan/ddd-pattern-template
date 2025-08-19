@@ -4,8 +4,10 @@ using CertManager.HttpApi.Middleware;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Scalar.AspNetCore;
 
 namespace CertManager.HttpApi;
@@ -86,22 +88,45 @@ public static class HttpApiExtensions
         app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
         app.UseCors(DefaultCorsPolicy);
         app.UseRouting();
+        
+        var environment = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
+        var configuration = app.ApplicationServices.GetRequiredService<IConfiguration>();
+        // Get OpenAPI settings from configuration
+        var enableSwagger = configuration.GetValue<bool?>("OpenApiSettings:EnableSwagger");
+        var enableScalar = configuration.GetValue<bool?>("OpenApiSettings:EnableScalar");
+        
+        // Determine if Swagger should be enabled
+        // If setting is provided, use it; otherwise, enable in Development environment
+        var shouldEnableSwagger = enableSwagger ?? environment.IsDevelopment();
+        
+        // Determine if Scalar should be enabled
+        // If setting is provided, use it; otherwise, enable in Development environment
+        var shouldEnableScalar = enableScalar ?? environment.IsDevelopment();
+        
         app.UseEndpoints(e =>
         {
             e.MapFastEndpoints(conf =>
             {
                 conf.Endpoints.RoutePrefix = "api";
             });
-            e.MapScalarApiReference("/docs", r =>
+            
+            if (shouldEnableScalar)
             {
-                r.WithTitle("CertManager API Documentation");
-                r.WithTheme(ScalarTheme.Moon);
-                r.WithOpenApiRoutePattern("swagger/{documentName}/swagger.json");
-            });
+                e.MapScalarApiReference("/docs", r =>
+                {
+                    r.WithTitle("CertManager API Documentation");
+                    r.WithTheme(ScalarTheme.Moon);
+                    r.WithOpenApiRoutePattern("swagger/{documentName}/swagger.json");
+                });
+            }
         });
         
         // OpenAPI document generation endpoints
-        app.UseSwaggerGen(); 
+        if (shouldEnableSwagger)
+        {
+            app.UseSwaggerGen();
+        }
+        
         return app;
     }
 }

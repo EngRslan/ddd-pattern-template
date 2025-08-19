@@ -1,5 +1,6 @@
 using System.Reflection;
 using CertManager.Domain.Shared.DependencyInjection;
+using CertManager.Domain.Shared.Events;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,12 @@ public static class ApplicationServiceExtensions
         
         // Register validators
         services.AddValidatorsFromAssembly(Assembly.Load("CertManager.Application.Contracts"));
+        
+        // Register domain events infrastructure
+        services.AddDomainEvents();
+        
+        // Auto-register all event handlers from this assembly
+        services.AddEventHandlersFromAssembly(Assembly.GetExecutingAssembly());
         
         return services;
     }

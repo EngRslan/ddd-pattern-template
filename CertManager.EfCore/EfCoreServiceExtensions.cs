@@ -14,13 +14,15 @@ public static class EfCoreServiceExtensions
     public static IServiceCollection AddEfCore(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<AuditableEntitySaveChangesInterceptor>();
+        services.AddScoped<DomainEventDispatcherInterceptor>();
         
         services.AddDbContext<ApplicationDataContext>((serviceProvider, options) =>
         {
-            var interceptor = serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>();
+            var auditInterceptor = serviceProvider.GetRequiredService<AuditableEntitySaveChangesInterceptor>();
+            var eventInterceptor = serviceProvider.GetRequiredService<DomainEventDispatcherInterceptor>();
             
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
-                   .AddInterceptors(interceptor);
+                   .AddInterceptors(auditInterceptor, eventInterceptor);
         });
         
         // Register generic repositories

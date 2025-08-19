@@ -1,18 +1,19 @@
 namespace CertManager.Domain.Interfaces;
 
-public interface IEntity<out T>
+public interface IEntity 
 {
-    T Id { get; }    
+    public int Id { get; set; }
 }
 
-public interface IEntity : IEntity<int>
+public interface IEntity<out T> : IEntity
 {
+    new T Id { get; }    
 }
 
 public interface ICreationEntity<out T> : IEntity<T>
 {
-    public Guid? CreatedBy { get; set; }
-    public DateTime CreatedAt { get; set; }
+    Guid? CreatedBy { get; set; }
+    DateTime CreatedAt { get; set; }
 }
 
 public interface IAuditableEntity<out T> : ICreationEntity<T>

@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientApp\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\CertManager.Application\CertManager.Application.csproj" />
       <ProjectReference Include="..\CertManager.EfCore\CertManager.EfCore.csproj" />
       <ProjectReference Include="..\CertManager.HttpApi\CertManager.HttpApi.csproj" />

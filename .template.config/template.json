@@ -60,6 +60,24 @@
       "datatype": "bool",
       "description": "Skip restore of packages on project creation",
       "defaultValue": "true"
+    },
+    "HttpPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 5000,
+        "high": 5300
+      },
+      "replaces": "5141"
+    },
+    "HttpsPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 7000,
+        "high": 7300
+      },
+      "replaces": "7228"
     }
   },
   "sources": [
