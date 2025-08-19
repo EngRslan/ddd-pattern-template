@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CertManager.Domain\CertManager.Domain.csproj" />
-      <ProjectReference Include="..\CertManager.Domain.Shared\CertManager.Domain.Shared.csproj" />
+      <ProjectReference Include="..\Domain\CertManager.Domain.csproj" />
+      <ProjectReference Include="..\Domain.Shared\CertManager.Domain.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

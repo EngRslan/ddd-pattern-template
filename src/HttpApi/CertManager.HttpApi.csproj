@@ -15,8 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CertManager.Application\CertManager.Application.csproj" />
-      <ProjectReference Include="..\CertManager.Application.Contracts\CertManager.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Application\CertManager.Application.csproj" />
+      <ProjectReference Include="..\Application.Contracts\CertManager.Application.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

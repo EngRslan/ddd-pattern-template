@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CertManager.Domain\CertManager.Domain.csproj" />
+      <ProjectReference Include="..\Domain\CertManager.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

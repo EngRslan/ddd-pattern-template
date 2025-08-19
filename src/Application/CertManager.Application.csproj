@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>CertManager.Domain</RootNamespace>
+        <RootNamespace>CertManager.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,11 +12,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CertManager.Domain.Shared\CertManager.Domain.Shared.csproj" />
+      <ProjectReference Include="..\Application.Contracts\CertManager.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Domain\CertManager.Domain.csproj" />
+      <ProjectReference Include="..\Domain.Shared\CertManager.Domain.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
     </ItemGroup>
 
 </Project>

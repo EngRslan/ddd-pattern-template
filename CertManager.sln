@@ -1,18 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.HttpApi.Host", "CertManager.HttpApi.Host\CertManager.HttpApi.Host.csproj", "{E106F4A8-E6B8-4809-8B9E-2E89DDF17AB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.HttpApi.Host", "src\HttpApi.Host\CertManager.HttpApi.Host.csproj", "{E106F4A8-E6B8-4809-8B9E-2E89DDF17AB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Domain.Shared", "CertManager.Domain.Shared\CertManager.Domain.Shared.csproj", "{A97D7331-8DE5-4614-AA3B-F94906C21B96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Domain.Shared", "src\Domain.Shared\CertManager.Domain.Shared.csproj", "{A97D7331-8DE5-4614-AA3B-F94906C21B96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Domain", "CertManager.Domain\CertManager.Domain.csproj", "{44CF8501-E10C-477A-BBEA-57060BE7D4D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Domain", "src\Domain\CertManager.Domain.csproj", "{44CF8501-E10C-477A-BBEA-57060BE7D4D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Application", "CertManager.Application\CertManager.Application.csproj", "{CD2E83E7-040C-48F4-8287-750BF4AB672C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Application", "src\Application\CertManager.Application.csproj", "{CD2E83E7-040C-48F4-8287-750BF4AB672C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Application.Contracts", "CertManager.Application.Contracts\CertManager.Application.Contracts.csproj", "{95FEDD5A-26DB-4CAA-9DF4-E79FCBD7C1D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Application.Contracts", "src\Application.Contracts\CertManager.Application.Contracts.csproj", "{95FEDD5A-26DB-4CAA-9DF4-E79FCBD7C1D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.HttpApi", "CertManager.HttpApi\CertManager.HttpApi.csproj", "{209ACFC8-E0B6-4997-8936-21BFE2EE1288}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.HttpApi", "src\HttpApi\CertManager.HttpApi.csproj", "{209ACFC8-E0B6-4997-8936-21BFE2EE1288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.EfCore", "CertManager.EfCore\CertManager.EfCore.csproj", "{E4E9B116-C73F-4E36-8693-E1E55AC31036}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.EfCore", "src\EfCore\CertManager.EfCore.csproj", "{E4E9B116-C73F-4E36-8693-E1E55AC31036}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,5 +50,14 @@ Global
 		{E4E9B116-C73F-4E36-8693-E1E55AC31036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4E9B116-C73F-4E36-8693-E1E55AC31036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4E9B116-C73F-4E36-8693-E1E55AC31036}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CD2E83E7-040C-48F4-8287-750BF4AB672C} = {0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}
+		{95FEDD5A-26DB-4CAA-9DF4-E79FCBD7C1D4} = {0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}
+		{44CF8501-E10C-477A-BBEA-57060BE7D4D2} = {0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}
+		{A97D7331-8DE5-4614-AA3B-F94906C21B96} = {0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}
+		{E4E9B116-C73F-4E36-8693-E1E55AC31036} = {0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}
+		{209ACFC8-E0B6-4997-8936-21BFE2EE1288} = {0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}
+		{E106F4A8-E6B8-4809-8B9E-2E89DDF17AB4} = {0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}
 	EndGlobalSection
 EndGlobal
