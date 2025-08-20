@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.EfCore", "src\E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Identity", "src\CertManager.Identity\CertManager.Identity.csproj", "{637818B9-B651-4013-86CE-4B8D38B58BA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Identity", "src\Identity\CertManager.Identity.csproj", "{637818B9-B651-4013-86CE-4B8D38B58BA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Infrastructure", "src\Infrastructure\CertManager.Infrastructure.csproj", "{21B40DD0-A792-4FB6-B813-D8283C2F3311}"
 EndProject
