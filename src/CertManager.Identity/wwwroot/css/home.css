@@ -1,0 +1,32 @@
+/* Additional styles for the home page */
+.text-white-50 {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+/* Feature cards with glassmorphism effect */
+.home-feature-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive button group */
+@media (max-width: 576px) {
+    .d-flex.gap-3 {
+        flex-direction: column;
+    }
+    
+    .d-flex.gap-3 .btn {
+        width: 100%;
+    }
+}

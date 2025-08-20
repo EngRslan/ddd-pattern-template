@@ -1,0 +1,154 @@
+@page
+@model CertManager.Identity.Pages.Account.Manage.ShowRecoveryCodes
+@{
+    ViewData["Title"] = "Recovery Codes";
+    Layout = "_ManageLayout";
+}
+
+<div class="card shadow-sm">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">@ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-success" role="alert">
+            <h5 class="alert-heading"><i class="bi bi-check-circle me-2"></i>Recovery Codes Generated</h5>
+            <p>Your two-factor authentication is now active. Save these recovery codes in a secure location.</p>
+        </div>
+
+        <div class="alert alert-danger" role="alert">
+            <h5 class="alert-heading"><i class="bi bi-exclamation-triangle me-2"></i>Important!</h5>
+            <p class="mb-2"><strong>Save these recovery codes now!</strong></p>
+            <ul class="mb-0">
+                <li>Each code can only be used once</li>
+                <li>Store them somewhere safe (password manager, secure note, printed copy)</li>
+                <li>These codes won't be shown again</li>
+                <li>You'll need these if you lose access to your authenticator app</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Your Recovery Codes</h5>
+                <p class="text-muted">Copy or print these codes and store them securely:</p>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="bg-light p-3 rounded font-monospace" id="recoveryCodes">
+                            @if (Model.RecoveryCodes != null)
+                            {
+                                <div class="row">
+                                    @for (int i = 0; i < Model.RecoveryCodes.Length; i++)
+                                    {
+                                        <div class="col-md-6 mb-2">
+                                            <span class="badge bg-secondary me-2">@(i + 1)</span>
+                                            <span class="user-select-all">@Model.RecoveryCodes[i]</span>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" onclick="copyRecoveryCodes()">
+                                <i class="bi bi-clipboard me-2"></i>Copy All Codes
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="printRecoveryCodes()">
+                                <i class="bi bi-printer me-2"></i>Print Codes
+                            </button>
+                            <button class="btn btn-outline-info" onclick="downloadRecoveryCodes()">
+                                <i class="bi bi-download me-2"></i>Download as Text
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">How to Use Recovery Codes</h5>
+                <ol>
+                    <li>If you lose access to your authenticator app, click "Log in with a recovery code" on the 2FA screen</li>
+                    <li>Enter one of these recovery codes</li>
+                    <li>Once used, that code becomes invalid</li>
+                    <li>After using a recovery code, set up your authenticator app again</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <a asp-page="./TwoFactorAuthentication" class="btn btn-primary">
+                <i class="bi bi-check me-2"></i>I've Saved My Codes
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function getRecoveryCodesText() {
+            var codes = [];
+            @if (Model.RecoveryCodes != null)
+            {
+                for (int i = 0; i < Model.RecoveryCodes.Length; i++)
+                {
+                    @:codes.push("@Model.RecoveryCodes[i]");
+                }
+            }
+            return codes.join('\n');
+        }
+
+        function copyRecoveryCodes() {
+            var codesText = getRecoveryCodesText();
+            navigator.clipboard.writeText(codesText).then(function() {
+                var button = event.currentTarget;
+                var originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-success');
+                
+                setTimeout(function() {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-outline-primary');
+                }, 2000);
+            });
+        }
+
+        function printRecoveryCodes() {
+            var printContent = document.getElementById('recoveryCodes').innerHTML;
+            var printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>Recovery Codes - CertManager</title>');
+            printWindow.document.write('<style>body { font-family: monospace; padding: 20px; }</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write('<h2>CertManager - Two-Factor Authentication Recovery Codes</h2>');
+            printWindow.document.write('<p>Store these codes in a safe place. Each code can only be used once.</p>');
+            printWindow.document.write(printContent);
+            printWindow.document.write('<p style="margin-top: 30px;">Generated: ' + new Date().toLocaleString() + '</p>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function downloadRecoveryCodes() {
+            var codesText = 'CertManager - Two-Factor Authentication Recovery Codes\n';
+            codesText += 'Generated: ' + new Date().toLocaleString() + '\n';
+            codesText += '=========================================\n\n';
+            codesText += getRecoveryCodesText();
+            codesText += '\n\n=========================================\n';
+            codesText += 'Store these codes in a safe place.\n';
+            codesText += 'Each code can only be used once.';
+            
+            var blob = new Blob([codesText], { type: 'text/plain' });
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'CertManager_Recovery_Codes_' + Date.now() + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+}

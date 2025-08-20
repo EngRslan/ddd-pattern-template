@@ -1,0 +1,56 @@
+@page
+@model CertManager.Identity.Pages.Account.Manage.ResetAuthenticator
+@{
+    ViewData["Title"] = "Reset Authenticator Key";
+    Layout = "_ManageLayout";
+}
+
+<div class="card shadow-sm">
+    <div class="card-header bg-warning text-dark">
+        <h4 class="mb-0">@ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-warning" role="alert">
+            <h5 class="alert-heading"><i class="bi bi-exclamation-triangle me-2"></i>Warning</h5>
+            <p>
+                <strong>Resetting your authenticator key will:</strong>
+            </p>
+            <ul class="mb-0">
+                <li>Disable 2FA on your account until you reconfigure your authenticator app</li>
+                <li>Invalidate your current authenticator configuration</li>
+                <li>Require you to set up your authenticator app again with a new key</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Why Reset Your Authenticator?</h5>
+                <p>You should reset your authenticator key if:</p>
+                <ul>
+                    <li>You've lost access to your authenticator app</li>
+                    <li>You've changed phones and can't transfer your authenticator</li>
+                    <li>You believe your authenticator key has been compromised</li>
+                    <li>Your authenticator app is generating incorrect codes</li>
+                </ul>
+
+                <hr />
+
+                <p class="text-muted">
+                    If you still have access to your authenticator app and it's working correctly, 
+                    you don't need to reset it.
+                </p>
+
+                <form method="post">
+                    <button type="submit" class="btn btn-warning">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Reset Authenticator Key
+                    </button>
+                    <a asp-page="./TwoFactorAuthentication" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

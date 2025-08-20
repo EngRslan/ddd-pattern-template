@@ -1,0 +1,128 @@
+@page
+@model CertManager.Identity.Pages.Account.ConfirmEmail
+@{
+    ViewData["Title"] = "Email Confirmation";
+}
+
+<div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 480px; width: 100%;">
+        <div class="card-body text-center">
+            @if (Model.IsSuccess)
+            {
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle text-white mb-4" 
+                     style="width: 80px; height: 80px; background: linear-gradient(135deg, #52c234 0%, #061700 100%);">
+                    <i class="bi bi-check-circle-fill" style="font-size: 2.5rem;"></i>
+                </div>
+                
+                <h1 class="h3 fw-bold text-dark mb-3">Email Confirmed!</h1>
+                
+                <div class="alert alert-success" role="alert">
+                    <i class="bi bi-check-circle me-2"></i>
+                    @Model.StatusMessage
+                </div>
+                
+                <p class="text-muted mb-4">
+                    Your email address has been successfully verified. You can now access all features of your CertManager account.
+                </p>
+                
+                <div class="bg-light rounded p-4 mb-4">
+                    <h6 class="text-dark mb-3">What's Next?</h6>
+                    <ul class="text-start text-muted small mb-0">
+                        <li>Sign in to your account</li>
+                        <li>Complete your profile information</li>
+                        <li>Enable two-factor authentication for added security</li>
+                        <li>Start managing your certificates</li>
+                    </ul>
+                </div>
+                
+                <div class="d-grid">
+                    <a asp-page="./Login" class="btn btn-primary rounded-3 py-2">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In to Your Account
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="d-inline-flex align-items-center justify-content-center rounded-circle text-white mb-4" 
+                     style="width: 80px; height: 80px; background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%);">
+                    <i class="bi bi-x-circle-fill" style="font-size: 2.5rem;"></i>
+                </div>
+                
+                <h1 class="h3 fw-bold text-dark mb-3">Confirmation Failed</h1>
+                
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    @Model.StatusMessage
+                </div>
+                
+                <p class="text-muted mb-4">
+                    We couldn't confirm your email address. This might happen if:
+                </p>
+                
+                <div class="bg-light rounded p-3 mb-4">
+                    <ul class="text-start text-muted small mb-0">
+                        <li>The confirmation link has expired (links are valid for 24 hours)</li>
+                        <li>You've already confirmed your email</li>
+                        <li>The link was incomplete or corrupted</li>
+                    </ul>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <a asp-page="./ResendEmailConfirmation" class="btn btn-primary rounded-3">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Request New Confirmation Email
+                    </a>
+                    <a asp-page="./Login" class="btn btn-outline-secondary rounded-3">
+                        Try to Sign In
+                    </a>
+                </div>
+            }
+            
+            <div class="mt-4 pt-3 border-top">
+                <p class="text-muted small mb-0">
+                    Need help? <a href="#" class="text-decoration-none">Contact Support</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-outline-secondary {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-secondary:hover {
+            transform: translateY(-2px);
+        }
+        
+        a {
+            color: #667eea;
+        }
+        
+        a:hover {
+            color: #764ba2;
+        }
+    </style>
+}

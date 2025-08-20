@@ -1,0 +1,146 @@
+@page
+@model CertManager.Identity.Pages.Account.Manage.Index
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "_ManageLayout";
+}
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h4 class="mb-0">@ViewData["Title"]</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.StatusMessage != null)
+        {
+            <div class="alert alert-@(Model.StatusMessage.StartsWith("Error") ? "danger" : "success") alert-dismissible fade show" role="alert">
+                @Model.StatusMessage
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Username" class="form-label">Username</label>
+                    <input asp-for="Username" class="form-control" disabled />
+                    <small class="text-muted">Username cannot be changed</small>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <input asp-for="Input.Email" class="form-control" />
+                        @if (Model.IsEmailConfirmed)
+                        {
+                            <span class="input-group-text bg-success text-white">
+                                <i class="bi bi-check-circle"></i> Verified
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="input-group-text bg-warning">
+                                <i class="bi bi-exclamation-triangle"></i> Not Verified
+                            </span>
+                        }
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Input.FirstName" class="form-label">First Name</label>
+                    <input asp-for="Input.FirstName" class="form-control" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Input.LastName" class="form-label">Last Name</label>
+                    <input asp-for="Input.LastName" class="form-control" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.PhoneNumber" class="form-label">Phone Number</label>
+                <div class="input-group">
+                    <input asp-for="Input.PhoneNumber" class="form-control" />
+                    @if (Model.IsPhoneNumberConfirmed)
+                    {
+                        <span class="input-group-text bg-success text-white">
+                            <i class="bi bi-check-circle"></i> Verified
+                        </span>
+                    }
+                </div>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            @if (!Model.IsEmailConfirmed)
+            {
+                <div class="alert alert-warning" role="alert">
+                    <h6 class="alert-heading">Email Not Verified</h6>
+                    <p class="mb-2">Your email address is not verified. You won't be able to recover your account if you forget your password.</p>
+                    <button type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-sm btn-warning">
+                        Send Verification Email
+                    </button>
+                </div>
+            }
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <button id="update-profile-button" type="submit" class="btn btn-primary">
+                    <i class="bi bi-save me-2"></i>Save Changes
+                </button>
+                
+                <div>
+                    <span class="text-muted small">Last updated: @(Model.LastUpdated?.ToString("g") ?? "Never")</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">Account Information</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">User ID</dt>
+            <dd class="col-sm-8"><code>@Model.UserId</code></dd>
+            
+            <dt class="col-sm-4">Account Created</dt>
+            <dd class="col-sm-8">@(Model.CreatedDate?.ToString("D") ?? "Unknown")</dd>
+            
+            <dt class="col-sm-4">Two-Factor Authentication</dt>
+            <dd class="col-sm-8">
+                @if (Model.IsTwoFactorEnabled)
+                {
+                    <span class="badge bg-success">Enabled</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Disabled</span>
+                    <a asp-page="./TwoFactorAuthentication" class="ms-2">Enable</a>
+                }
+            </dd>
+            
+            <dt class="col-sm-4">External Logins</dt>
+            <dd class="col-sm-8">
+                @if (Model.ExternalLoginsCount > 0)
+                {
+                    <span>@Model.ExternalLoginsCount provider(s) connected</span>
+                }
+                else
+                {
+                    <span class="text-muted">None</span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

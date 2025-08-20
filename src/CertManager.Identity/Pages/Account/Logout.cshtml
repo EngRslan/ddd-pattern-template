@@ -1,0 +1,102 @@
+@page
+@model CertManager.Identity.Pages.Account.Logout
+@{
+    ViewData["Title"] = "Sign Out";
+}
+
+<div class="container-fluid h-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 420px; width: 100%;">
+        <div class="card-body text-center">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle text-white mb-4" style="width: 80px; height: 80px; background: linear-gradient(135deg, #4c5fd5 0%, #5a4a8a 100%) !important;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                </svg>
+            </div>
+            
+            @if (Model.ShowLogoutConfirmation)
+            {
+                <h1 class="h3 fw-bold text-dark mb-3">Sign Out</h1>
+                <p class="text-muted mb-4">
+                    Are you sure you want to sign out?
+                </p>
+                
+                <form asp-page-handler="Logout" method="post">
+                    @if (!string.IsNullOrEmpty(Model.PostLogoutRedirectUri))
+                    {
+                        <input type="hidden" name="postLogoutRedirectUri" value="@Model.PostLogoutRedirectUri" />
+                    }
+                    @if (!string.IsNullOrEmpty(Model.ClientName))
+                    {
+                        <p class="text-muted small mb-4">
+                            You will be signed out of <strong>@Model.ClientName</strong>
+                        </p>
+                    }
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-danger rounded-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+                            Yes, Sign Out
+                        </button>
+                        <a asp-page="/Index" class="btn btn-outline-secondary rounded-3">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <h1 class="h3 fw-bold text-dark mb-3">Signed Out</h1>
+                <div class="alert alert-success" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    You have been successfully signed out.
+                </div>
+                
+                @if (!string.IsNullOrEmpty(Model.PostLogoutRedirectUri))
+                {
+                    <p class="text-muted mb-4">
+                        You will be redirected in <span id="countdown">5</span> seconds...
+                    </p>
+                    <script>
+                        (function() {
+                            var seconds = 5;
+                            var countdown = document.getElementById('countdown');
+                            var redirectUrl = '@Model.PostLogoutRedirectUri';
+                            
+                            var timer = setInterval(function() {
+                                seconds--;
+                                if (countdown) {
+                                    countdown.textContent = seconds;
+                                }
+                                if (seconds <= 0) {
+                                    clearInterval(timer);
+                                    window.location.href = redirectUrl;
+                                }
+                            }, 1000);
+                        })();
+                    </script>
+                }
+                
+                <div class="d-grid gap-2">
+                    @if (!string.IsNullOrEmpty(Model.PostLogoutRedirectUri))
+                    {
+                        <a href="@Model.PostLogoutRedirectUri" class="btn btn-primary rounded-3">
+                            Return to Application
+                        </a>
+                    }
+                    <a asp-page="/Index" class="btn btn-outline-primary rounded-3">
+                        Go to Home
+                    </a>
+                    <a asp-page="./Login" class="btn btn-link text-decoration-none">
+                        Sign In Again
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

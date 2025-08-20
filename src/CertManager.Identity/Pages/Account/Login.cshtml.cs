@@ -1,0 +1,111 @@
+using System.ComponentModel.DataAnnotations;
+using CertManager.Domain.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace CertManager.Identity.Pages.Account;
+
+public class Login : PageModel
+{
+    private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<User> _userManager;
+    private readonly ILogger<Login> _logger;
+
+    public Login(
+        SignInManager<User> signInManager,
+        UserManager<User> userManager,
+        ILogger<Login> logger)
+    {
+        _signInManager = signInManager;
+        _userManager = userManager;
+        _logger = logger;
+    }
+
+    [BindProperty]
+    public InputModel Input { get; set; } = new();
+
+    public IList<AuthenticationScheme>? ExternalLogins { get; set; }
+
+    public string? ReturnUrl { get; set; }
+
+    [TempData]
+    public string? ErrorMessage { get; set; }
+
+    public class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; } = string.Empty;
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+
+    public async Task OnGetAsync(string? returnUrl = null)
+    {
+        if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            ModelState.AddModelError(string.Empty, ErrorMessage);
+        }
+
+        returnUrl ??= Url.Content("~/");
+
+        // Clear the existing external cookie to ensure a clean login process
+        await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+        ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+        ReturnUrl = returnUrl;
+    }
+
+    public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
+    {
+        returnUrl ??= Url.Content("~/");
+
+        ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+        if (ModelState.IsValid)
+        {
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result = await _signInManager.PasswordSignInAsync(
+                Input.Email, 
+                Input.Password, 
+                Input.RememberMe, 
+                lockoutOnFailure: true);
+
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User logged in.");
+                return LocalRedirect(returnUrl);
+            }
+
+            if (result.RequiresTwoFactor)
+            {
+                return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+            }
+
+            if (result.IsLockedOut)
+            {
+                _logger.LogWarning("User account locked out.");
+                return RedirectToPage("./Lockout");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
+            }
+        }
+
+        // If we got this far, something failed, redisplay form
+        return Page();
+    }
+}
