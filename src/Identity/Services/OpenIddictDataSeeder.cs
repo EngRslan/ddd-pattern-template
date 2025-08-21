@@ -57,15 +57,59 @@ public class OpenIddictDataSeeder : IHostedService
         // Empty list of applications to seed - add your applications here
         var applications = new List<OpenIddictApplicationDescriptor>
         {
-            // Example:
-            // new OpenIddictApplicationDescriptor
-            // {
-            //     ClientId = "my-client-id",
-            //     ClientSecret = "my-client-secret",
-            //     DisplayName = "My Application",
-            //     Type = ClientTypes.Confidential,
-            //     // ... other properties
-            // }
+            // Angular SPA Client Application
+            new OpenIddictApplicationDescriptor
+            {
+                ClientId = "certmanager-angular-client",
+                DisplayName = "CertManager Angular Client",
+                ApplicationType = OpenIddictConstants.ClientTypes.Public,
+                ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
+                PostLogoutRedirectUris =
+                {
+                    new Uri("https://localhost:2282/"),
+                    new Uri("http://localhost:5141/"),
+                    new Uri("http://localhost:4200/")
+                },
+                RedirectUris =
+                {
+                    new Uri("https://localhost:2282/auth-callback"),
+                    new Uri("http://localhost:5141/auth-callback"),
+                    new Uri("http://localhost:4200/auth-callback"),
+                    new Uri("https://localhost:2282/silent-refresh"),
+                    new Uri("http://localhost:5141/silent-refresh"),
+                    new Uri("http://localhost:4200/silent-refresh")
+                },
+                Permissions =
+                {
+                    OpenIddictConstants.Permissions.Endpoints.Authorization,
+                    OpenIddictConstants.Permissions.Endpoints.EndSession,
+                    OpenIddictConstants.Permissions.Endpoints.Token,
+                    OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
+                    OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
+                    OpenIddictConstants.Permissions.ResponseTypes.Code,
+                    OpenIddictConstants.Permissions.Scopes.Email,
+                    OpenIddictConstants.Permissions.Scopes.Profile,
+                    OpenIddictConstants.Permissions.Scopes.Roles,
+                    OpenIddictConstants.Permissions.Prefixes.Scope + "certmanager-api"
+                },
+                Requirements =
+                {
+                    OpenIddictConstants.Requirements.Features.ProofKeyForCodeExchange
+                }
+            },
+            
+            // Backend API Application for Introspection
+            new OpenIddictApplicationDescriptor
+            {
+                ClientId = "certmanager-api",
+                ClientSecret = "certmanager-api-secret-2024",
+                DisplayName = "CertManager API Resource Server",
+                ApplicationType = OpenIddictConstants.ClientTypes.Confidential,
+                Permissions =
+                {
+                    OpenIddictConstants.Permissions.Endpoints.Introspection
+                }
+            }
         };
 
         foreach (var applicationDescriptor in applications)
@@ -97,14 +141,14 @@ public class OpenIddictDataSeeder : IHostedService
         // Empty list of scopes to seed - add your scopes here
         var scopes = new List<OpenIddictScopeDescriptor>
         {
-            // Example:
-            // new OpenIddictScopeDescriptor
-            // {
-            //     Name = "api",
-            //     DisplayName = "API Access",
-            //     Description = "Allows access to the API",
-            //     Resources = { "resource-server" }
-            // }
+            // CertManager API Scope
+            new OpenIddictScopeDescriptor
+            {
+                Name = "certmanager-api",
+                DisplayName = "CertManager API Access",
+                Description = "Allows access to the CertManager API",
+                Resources = { "certmanager-api" }
+            }
         };
 
         foreach (var scopeDescriptor in scopes)

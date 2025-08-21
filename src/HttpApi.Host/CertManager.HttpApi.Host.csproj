@@ -29,4 +29,11 @@
       <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ClientApp\src\app\core\guards\" />
+      <Folder Include="ClientApp\src\app\core\interceptors\" />
+      <Folder Include="ClientApp\src\app\core\services\" />
+      <Folder Include="ClientApp\src\app\layout\" />
+    </ItemGroup>
+
 </Project>

@@ -78,6 +78,24 @@
         "high": 7300
       },
       "replaces": "7228"
+    },
+    "HttpPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 5000,
+        "high": 5300
+      },
+      "replaces": "5213"
+    },
+    "HttpsPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 7000,
+        "high": 7300
+      },
+      "replaces": "7222"
     }
   },
   "sources": [
