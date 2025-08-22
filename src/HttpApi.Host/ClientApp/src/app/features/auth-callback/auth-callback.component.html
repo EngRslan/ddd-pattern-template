@@ -1,0 +1,26 @@
+<div class="auth-callback-container">
+  <div class="auth-card">
+    <div class="auth-content" *ngIf="isProcessing">
+      <div class="spinner">
+        <svg class="spinner-svg" viewBox="0 0 50 50">
+          <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+        </svg>
+      </div>
+      <h2>Completing Authentication</h2>
+      <p>Please wait while we redirect you...</p>
+    </div>
+
+    <div class="auth-content error-content" *ngIf="!isProcessing && error">
+      <div class="error-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 8v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="16" r="1" fill="currentColor"/>
+        </svg>
+      </div>
+      <h2>Authentication Failed</h2>
+      <p>{{ error }}</p>
+      <p class="redirect-message">Redirecting to home page...</p>
+    </div>
+  </div>
+</div>

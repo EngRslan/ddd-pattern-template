@@ -7,16 +7,13 @@ namespace CertManager.Identity.Services;
 public class OpenIddictDataSeeder : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly IConfiguration _configuration;
     private readonly ILogger<OpenIddictDataSeeder> _logger;
 
     public OpenIddictDataSeeder(
         IServiceProvider serviceProvider,
-        IConfiguration configuration,
         ILogger<OpenIddictDataSeeder> logger)
     {
         _serviceProvider = serviceProvider;
-        _configuration = configuration;
         _logger = logger;
     }
 
@@ -58,26 +55,28 @@ public class OpenIddictDataSeeder : IHostedService
         var applications = new List<OpenIddictApplicationDescriptor>
         {
             // Angular SPA Client Application
-            new OpenIddictApplicationDescriptor
+            new()
             {
                 ClientId = "certmanager-angular-client",
                 DisplayName = "CertManager Angular Client",
-                ApplicationType = OpenIddictConstants.ClientTypes.Public,
+                ClientType = OpenIddictConstants.ClientTypes.Public,
+                ApplicationType = OpenIddictConstants.ApplicationTypes.Web,
                 ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
                 PostLogoutRedirectUris =
                 {
-                    new Uri("https://localhost:2282/"),
+                    new Uri("https://localhost:7228/"),
                     new Uri("http://localhost:5141/"),
                     new Uri("http://localhost:4200/")
                 },
                 RedirectUris =
                 {
-                    new Uri("https://localhost:2282/auth-callback"),
-                    new Uri("http://localhost:5141/auth-callback"),
+                    new Uri("https://localhost:7228/auth-callback"),
                     new Uri("http://localhost:4200/auth-callback"),
-                    new Uri("https://localhost:2282/silent-refresh"),
-                    new Uri("http://localhost:5141/silent-refresh"),
-                    new Uri("http://localhost:4200/silent-refresh")
+                    new Uri("http://localhost:5141/auth-callback"),
+                    
+                    new Uri("https://localhost:7228/silent-refresh"),
+                    new Uri("http://localhost:4200/silent-refresh"),
+                    new Uri("http://localhost:5141/silent-refresh")
                 },
                 Permissions =
                 {
@@ -104,10 +103,46 @@ public class OpenIddictDataSeeder : IHostedService
                 ClientId = "certmanager-api",
                 ClientSecret = "certmanager-api-secret-2024",
                 DisplayName = "CertManager API Resource Server",
-                ApplicationType = OpenIddictConstants.ClientTypes.Confidential,
+                ClientType = OpenIddictConstants.ClientTypes.Confidential,
                 Permissions =
                 {
                     OpenIddictConstants.Permissions.Endpoints.Introspection
+                }
+            },
+            
+            // Scalar OpenAPI Documentation Client
+            new OpenIddictApplicationDescriptor
+            {
+                ClientId = "scalar-openapi-client",
+                DisplayName = "Scalar OpenAPI Documentation",
+                ClientType = OpenIddictConstants.ClientTypes.Public,
+                ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
+                RedirectUris =
+                {
+                    new Uri("https://localhost:7228/docs/"),
+                    new Uri("http://localhost:5141/docs/")
+                },
+                PostLogoutRedirectUris =
+                {
+                    new Uri("https://localhost:7228"),
+                    new Uri("http://localhost:5141")
+                },
+                Permissions =
+                {
+                    OpenIddictConstants.Permissions.Endpoints.Authorization,
+                    OpenIddictConstants.Permissions.Endpoints.Token,
+                    OpenIddictConstants.Permissions.Endpoints.EndSession,
+                    OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
+                    OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
+                    OpenIddictConstants.Permissions.ResponseTypes.Code,
+                    OpenIddictConstants.Permissions.Scopes.Email,
+                    OpenIddictConstants.Permissions.Scopes.Profile,
+                    OpenIddictConstants.Permissions.Scopes.Roles,
+                    OpenIddictConstants.Permissions.Prefixes.Scope + "certmanager-api"
+                },
+                Requirements =
+                {
+                    OpenIddictConstants.Requirements.Features.ProofKeyForCodeExchange
                 }
             }
         };
@@ -173,7 +208,7 @@ public class OpenIddictDataSeeder : IHostedService
         }
     }
 
-    private async Task SeedRolesAsync(IServiceProvider services, CancellationToken cancellationToken)
+    private async Task SeedRolesAsync(IServiceProvider services, CancellationToken _)
     {
         var roleManager = services.GetRequiredService<RoleManager<Role>>();
         
@@ -215,7 +250,7 @@ public class OpenIddictDataSeeder : IHostedService
         }
     }
 
-    private async Task SeedUsersAsync(IServiceProvider services, CancellationToken cancellationToken)
+    private async Task SeedUsersAsync(IServiceProvider services, CancellationToken _)
     {
         var userManager = services.GetRequiredService<UserManager<User>>();
         

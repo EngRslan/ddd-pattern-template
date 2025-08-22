@@ -15,7 +15,8 @@ export const authGuard: CanActivateFn = (route, state): Observable<boolean | Url
         return true;
       }
       
-      localStorage.setItem('redirectUrl', state.url);
+      // Store the return URL for after authentication
+      sessionStorage.setItem('authReturnUrl', state.url);
       
       authService.login().catch(error => {
         console.error('Login redirect failed:', error);

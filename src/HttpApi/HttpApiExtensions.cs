@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NSwag;
+using OpenIddict.Validation.AspNetCore;
 using Scalar.AspNetCore;
 
 namespace CertManager.HttpApi;
@@ -18,6 +20,30 @@ public static class HttpApiExtensions
     
     public static IServiceCollection AddHttpApi(this IServiceCollection services, IConfiguration configuration)
     {
+        // Configure OpenIddict validation for introspection
+        services.AddOpenIddict()
+            .AddValidation(options =>
+            {
+                // Configure the issuer (Identity Server URL)
+                var identityServerUrl = configuration["OpenIddict:Issuer"] ?? throw new InvalidOperationException("The OpenIddict:Issuer configuration value is missing.");
+                options.SetIssuer(identityServerUrl);
+                
+                // Configure introspection using the credentials from the seeder
+                options.UseIntrospection()
+                    .SetClientId(configuration["OpenIddict:ClientId"] ?? throw new InvalidOperationException("The OpenIddict:ClientId configuration value is missing."))
+                    .SetClientSecret(configuration["OpenIddict:ClientSecret"] ?? throw new InvalidOperationException("The OpenIddict:ClientSecret configuration value is missing."));
+                
+                // Use System.Net.Http for introspection requests
+                options.UseSystemNetHttp();
+                
+                // Register the ASP.NET Core host
+                options.UseAspNetCore();
+            });
+        
+        // Add authentication
+        services.AddAuthentication(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+        services.AddAuthorization();
+        
         services.AddFastEndpoints();
         services.AddHttpContextAccessor();
         
@@ -30,9 +56,33 @@ public static class HttpApiExtensions
                 s.Version = "v1";
                 s.Description = "Domain-Driven Design Template API Documentation";
                 s.DocumentName = "v1";
+                
+                // Add OAuth2 security scheme
+                s.AddAuth("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = OpenApiSecuritySchemeType.OAuth2,
+                    Description = "OAuth2 Authorization Code Flow",
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = configuration["ScalarOAuth:AuthorizationUrl"],
+                            TokenUrl = configuration["ScalarOAuth:TokenUrl"],
+                            RefreshUrl = configuration["ScalarOAuth:RefreshUrl"] ?? configuration["ScalarOAuth:TokenUrl"],
+                            Scopes = new Dictionary<string, string>
+                            {
+                                ["openid"] = "OpenID Connect scope",
+                                ["profile"] = "User profile information",
+                                ["email"] = "User email address",
+                                ["roles"] = "User roles",
+                                ["certmanager-api"] = "Access to CertManager API"
+                            }
+                        }
+                    }
+                });
             };
             
-            o.EnableJWTBearerAuth = false; // Set to true if using JWT
+            o.EnableJWTBearerAuth = false; // We're using OAuth2 instead
             o.TagDescriptions = t =>
             {
                 t["Home"] = "Server information endpoints";
@@ -49,6 +99,30 @@ public static class HttpApiExtensions
                 s.Title = "CertManager API";
                 s.Version = "v2";
                 s.DocumentName = "v2";
+                
+                // Add OAuth2 security scheme for v2 as well
+                s.AddAuth("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = OpenApiSecuritySchemeType.OAuth2,
+                    Description = "OAuth2 Authorization Code Flow",
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = configuration["ScalarOAuth:AuthorizationUrl"],
+                            TokenUrl = configuration["ScalarOAuth:TokenUrl"],
+                            RefreshUrl = configuration["ScalarOAuth:RefreshUrl"] ?? configuration["ScalarOAuth:TokenUrl"],
+                            Scopes = new Dictionary<string, string>
+                            {
+                                ["openid"] = "OpenID Connect scope",
+                                ["profile"] = "User profile information",
+                                ["email"] = "User email address",
+                                ["roles"] = "User roles",
+                                ["certmanager-api"] = "Access to CertManager API"
+                            }
+                        }
+                    }
+                });
             };
             o.MaxEndpointVersion = 2;
             o.AutoTagPathSegmentIndex = 0;
@@ -89,6 +163,10 @@ public static class HttpApiExtensions
         app.UseCors(DefaultCorsPolicy);
         app.UseRouting();
         
+        // Add authentication and authorization middleware
+        app.UseAuthentication();
+        app.UseAuthorization();
+        
         var environment = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
         var configuration = app.ApplicationServices.GetRequiredService<IConfiguration>();
         // Get OpenAPI settings from configuration
@@ -117,6 +195,35 @@ public static class HttpApiExtensions
                     r.WithTitle("CertManager API Documentation");
                     r.WithTheme(ScalarTheme.Moon);
                     r.WithOpenApiRoutePattern("swagger/{documentName}/swagger.json");
+                    
+                    // Configure OAuth2 Authorization Code Flow for Scalar
+                    var scalarOAuthConfig = configuration.GetSection("ScalarOAuth");
+                    
+                    var securitySchemeName = scalarOAuthConfig["SecuritySchemeName"] 
+                        ?? throw new InvalidOperationException("The ScalarOAuth:SecuritySchemeName configuration value is missing.");
+                    
+                    var clientId = scalarOAuthConfig["ClientId"] 
+                        ?? throw new InvalidOperationException("The ScalarOAuth:ClientId configuration value is missing.");
+                    
+                    var authorizationUrl = scalarOAuthConfig["AuthorizationUrl"] 
+                        ?? throw new InvalidOperationException("The ScalarOAuth:AuthorizationUrl configuration value is missing.");
+                    
+                    var tokenUrl = scalarOAuthConfig["TokenUrl"] 
+                        ?? throw new InvalidOperationException("The ScalarOAuth:TokenUrl configuration value is missing.");
+                    
+                    var scopes = scalarOAuthConfig["Scopes"] 
+                        ?? throw new InvalidOperationException("The ScalarOAuth:Scopes configuration value is missing.");
+                    r.HideModels = true;
+                    r.AddPreferredSecuritySchemes(securitySchemeName);
+                    r.AddAuthorizationCodeFlow(securitySchemeName, flow =>
+                    {
+                        flow.ClientId = clientId;
+                        flow.AuthorizationUrl = authorizationUrl;
+                        flow.TokenUrl = tokenUrl;
+                        flow.RefreshUrl = scalarOAuthConfig["RefreshUrl"] ?? tokenUrl; // RefreshUrl is optional, defaults to TokenUrl
+                        flow.WithSelectedScopes(scopes.Split(',').Select(s => s.Trim()).ToArray());
+                        flow.Pkce = Pkce.Sha256;
+                    });
                 });
             }
         });

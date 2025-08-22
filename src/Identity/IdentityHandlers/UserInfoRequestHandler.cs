@@ -153,7 +153,7 @@ public class UserInfoRequestHandler : IOpenIddictServerHandler<OpenIddictServerE
             context.Claims.Add(claim.Key, parameterValue);
         }
         
-        context.HandleRequest();
+        //context.HandleRequest();
     }
 
     private static bool IsStandardClaim(string claimType)

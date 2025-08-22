@@ -2,9 +2,14 @@ using CertManager.Application;
 using CertManager.Domain;
 using CertManager.EfCore;
 using CertManager.HttpApi;
+using CertManager.HttpApi.Host.HealthChecks;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 
-// Create bootstrap logger for startup
+// ================================================================================
+// Bootstrap Configuration
+// ================================================================================
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
@@ -12,11 +17,13 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
-    Log.Information("Starting web host");
+    Log.Information("Starting CertManager API Host");
     
     var builder = WebApplication.CreateBuilder(args);
     
-    // Configure Serilog from appsettings.json
+    // ================================================================================
+    // Logging Configuration
+    // ================================================================================
     builder.Host.UseSerilog((context, services, configuration) => configuration
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
@@ -35,10 +42,53 @@ try
             rollOnFileSizeLimit: true,
             retainedFileCountLimit: 30));
     
+    // ================================================================================
+    // Service Registration
+    // ================================================================================
+    
+    // Add core services
     builder.Services.AddDomain();
     builder.Services.AddEfCore(builder.Configuration);
     builder.Services.AddApplication();
     builder.Services.AddHttpApi(builder.Configuration);
+    
+    // Configure Health Check Options
+    builder.Services.Configure<MemoryHealthCheckOptions>(options =>
+    {
+        options.MaximumWorkingSetMB = builder.Configuration.GetValue<double>("HealthChecks:Memory:MaximumWorkingSetMB", 1024);
+        options.CriticalWorkingSetMB = builder.Configuration.GetValue<double>("HealthChecks:Memory:CriticalWorkingSetMB", 2048);
+    });
+    
+    // Configure Health Checks
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    if (!string.IsNullOrEmpty(connectionString))
+    {
+        builder.Services.AddHealthChecks()
+            .AddDbContextCheck<ApplicationDataContext>(
+                name: "database",
+                tags: ["db", "sql", "sqlserver"])
+            .AddSqlServer(
+                connectionString: connectionString,
+                name: "sql-server",
+                tags: ["db", "sql", "sqlserver"])
+            .AddCheck<ApplicationHealthCheck>(
+                name: "application",
+                tags: ["app", "ready"])
+            .AddCheck<MemoryHealthCheck>(
+                name: "memory",
+                tags: ["memory"]);
+    }
+    else
+    {
+        // Add basic health checks if no database connection
+        builder.Services.AddHealthChecks()
+            .AddCheck<ApplicationHealthCheck>(
+                name: "application",
+                tags: ["app", "ready"])
+            .AddCheck<MemoryHealthCheck>(
+                name: "memory",
+                tags: ["memory"]);
+    }
     
     // Add SPA static files
     builder.Services.AddSpaStaticFiles(configuration =>
@@ -46,30 +96,41 @@ try
         configuration.RootPath = "ClientApp/dist";
     });
     
+    // ================================================================================
+    // Application Pipeline Configuration
+    // ================================================================================
     var app = builder.Build();
     
-    if(app.Environment.IsDevelopment())
+    // Exception handling
+    if (app.Environment.IsDevelopment())
     {
         app.UseDeveloperExceptionPage();
     }
     
+    // Request logging
     app.UseSerilogRequestLogging(options =>
     {
         options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
         options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
         {
-            if (httpContext.Request.Host.Value != null)
+            if (httpContext.Request.Host.HasValue)
             {
                 diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
             }
+            
             diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
-            if (!string.IsNullOrEmpty(httpContext.Request.Headers.UserAgent.FirstOrDefault()))
+            
+            var userAgent = httpContext.Request.Headers.UserAgent.FirstOrDefault();
+            if (!string.IsNullOrEmpty(userAgent))
             {
-                diagnosticContext.Set("UserAgent", httpContext.Request.Headers.UserAgent.FirstOrDefault()!);
+                diagnosticContext.Set("UserAgent", userAgent);
             }
+            
+            diagnosticContext.Set("RemoteIpAddress", httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown");
         };
     });
     
+    // Security and static files
     app.UseHttpsRedirection();
     app.UseStaticFiles();
     
@@ -77,27 +138,65 @@ try
     {
         app.UseSpaStaticFiles();
     }
+    
+    // ================================================================================
+    // Health Check Endpoints
+    // ================================================================================
+    app.MapHealthChecks("/health", new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        AllowCachingResponses = false
+    });
+    
+    app.MapHealthChecks("/health/ready", new HealthCheckOptions
+    {
+        Predicate = check => check.Tags.Contains("ready"),
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        AllowCachingResponses = false
+    });
+    
+    app.MapHealthChecks("/health/live", new HealthCheckOptions
+    {
+        Predicate = _ => false, // Always healthy for liveness
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+        AllowCachingResponses = false
+    });
+    
+    // ================================================================================
+    // API and SPA Configuration
+    // ================================================================================
+    
+    // Configure API endpoints
     app.UseHttpApi();
+    
+    // Configure SPA
     app.UseSpa(spa =>
     {
         spa.Options.SourcePath = "ClientApp";
         
         if (app.Environment.IsDevelopment())
         {
-            // Use the Angular CLI development server
-            // spa.UseAngularCliServer(npmScript: "start");
-            // Or use proxy to external Angular dev server (faster for development)
+            // Use proxy to external Angular dev server (faster for development)
             spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+            
+            // Alternative: Use the Angular CLI development server
+            // spa.UseAngularCliServer(npmScript: "start");
         }
     });
     
+    // ================================================================================
+    // Application Startup
+    // ================================================================================
+    Log.Information("Application started successfully");
     app.Run();
 }
-catch (Exception ex)
+catch (Exception ex) when (ex.GetType().Name != "HostAbortedException")
 {
-    Log.Fatal(ex, "Host terminated unexpectedly");
+    Log.Fatal(ex, "Application terminated unexpectedly");
+    throw;
 }
 finally
 {
+    Log.Information("Shutting down application");
     Log.CloseAndFlush();
 }

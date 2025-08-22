@@ -17,7 +17,7 @@ A .NET template for creating Domain-Driven Design (DDD) pattern applications wit
 ## Installation
 
 ### Install from local source
-```bash
+```bash~~~~
 dotnet new install .
 ```
 

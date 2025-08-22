@@ -4,7 +4,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace CertManager.HttpApi.Features.Home;
+namespace CertManager.HttpApi.Features.Samples.Home;
 
 
 public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
@@ -14,7 +14,14 @@ public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
     public override void Configure()
     {
         Get("/home");
-        AllowAnonymous();
+        Roles();
+        Options(x=>x.WithTags("Samples"));
+        Summary(s =>
+        {
+            s.Summary = "Home";
+            s.Description = "Returns server information and application details. This is a sample endpoint - DELETE IT IMMEDIATELY in production!";
+            s.Responses[200] = "Service is healthy";
+        });
         Description(b => b
             .Produces<HomeResponse>(200, "application/json")
             .WithName("Home")
