@@ -1,6 +1,6 @@
 using System.Reflection;
-using CertManager.Domain.Shared.DependencyInjection;
-using CertManager.HttpApi.Middleware;
+using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.HttpApi.Middleware;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +18,7 @@ using OpenIddict.Validation.AspNetCore;
 
 using Scalar.AspNetCore;
 
-namespace CertManager.HttpApi;
+namespace Engrslan.HttpApi;
 
 public static class HttpApiExtensions
 {
@@ -102,7 +102,7 @@ public static class HttpApiExtensions
         {
             o.DocumentSettings = s =>
             {
-                s.Title = "CertManager API";
+                s.Title = "Engrslan API";
                 s.Version = "v1";
                 s.Description = "Domain-Driven Design Template API Documentation";
                 s.DocumentName = "v1";
@@ -127,7 +127,7 @@ public static class HttpApiExtensions
         {
             o.DocumentSettings = s =>
             {
-                s.Title = "CertManager API";
+                s.Title = "Engrslan API";
                 s.Version = "v2";
                 s.DocumentName = "v2";
                 //#if(UseIdentity)
@@ -158,7 +158,7 @@ public static class HttpApiExtensions
                         ["profile"] = "User profile information",
                         ["email"] = "User email address",
                         ["roles"] = "User roles",
-                        ["certmanager-api"] = "Access to CertManager API"
+                        ["certmanager-api"] = "Access to Engrslan API"
                     }
                 }
             }
@@ -246,7 +246,7 @@ public static class HttpApiExtensions
 
     private static void ConfigureScalarBasicSettings(ScalarOptions options)
     {
-        options.WithTitle("CertManager API Documentation");
+        options.WithTitle("Engrslan API Documentation");
         options.WithTheme(ScalarTheme.Moon);
         options.WithOpenApiRoutePattern("swagger/{documentName}/swagger.json");
         options.HideModels = true;

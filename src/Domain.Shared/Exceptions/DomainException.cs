@@ -1,4 +1,4 @@
-namespace CertManager.Domain.Shared.Exceptions;
+namespace Engrslan.Domain.Shared.Exceptions;
 
 public class DomainException : Exception
 {

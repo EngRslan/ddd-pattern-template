@@ -2,7 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace CertManager.Domain.Shared.Events;
+namespace Engrslan.Domain.Shared.Events;
 
 public static class EventExtensions
 {

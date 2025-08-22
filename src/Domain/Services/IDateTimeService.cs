@@ -1,4 +1,4 @@
-namespace CertManager.Domain.Services;
+namespace Engrslan.Domain.Services;
 
 public interface IDateTimeService
 {

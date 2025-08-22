@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CertManagerApp": {
+    "EngrslanApp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -42,7 +42,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/cert-manager-app",
+            "outputPath": "dist/engrslan-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -101,10 +101,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "CertManagerApp:build:production"
+              "buildTarget": "EngrslanApp:build:production"
             },
             "development": {
-              "buildTarget": "CertManagerApp:build:development"
+              "buildTarget": "EngrslanApp:build:development"
             }
           },
           "defaultConfiguration": "development"

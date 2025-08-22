@@ -1,6 +1,6 @@
-﻿using CertManager.Domain.Shared.Events;
+﻿using Engrslan.Domain.Shared.Events;
 
-namespace CertManager.Domain.Interfaces;
+namespace Engrslan.Domain.Interfaces;
 
 public interface IAggregateRootEntity : IEntity
 {

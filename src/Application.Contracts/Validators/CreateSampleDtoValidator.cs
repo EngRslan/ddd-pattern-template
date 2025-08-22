@@ -1,7 +1,7 @@
-using CertManager.Application.Contracts.Dtos;
+using Engrslan.Application.Contracts.Dtos;
 using FluentValidation;
 
-namespace CertManager.Application.Contracts.Validators;
+namespace Engrslan.Application.Contracts.Validators;
 
 public class CreateSampleDtoValidator : AbstractValidator<CreateSampleDto>
 {

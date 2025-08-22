@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CertManager.Domain.Shared.DependencyInjection;
+namespace Engrslan.Domain.Shared.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {

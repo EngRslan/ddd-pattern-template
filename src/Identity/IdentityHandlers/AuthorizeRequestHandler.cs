@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using CertManager.Domain.Identity;
+using Engrslan.Domain.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using OpenIddict.Abstractions;
 using OpenIddict.Server;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace CertManager.Identity.IdentityHandlers;
+namespace Engrslan.Identity.IdentityHandlers;
 
 public class AuthorizeRequestHandler : IOpenIddictServerHandler<OpenIddictServerEvents.HandleAuthorizationRequestContext>
 {

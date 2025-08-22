@@ -1,11 +1,11 @@
-using CertManager.Domain.Interfaces;
-using CertManager.Domain.Services;
+using Engrslan.Domain.Interfaces;
+using Engrslan.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CertManager.EfCore.Interceptors;
+namespace Engrslan.EfCore.Interceptors;
 
 public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 {

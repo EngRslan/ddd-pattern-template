@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace CertManager.EfCore;
+namespace Engrslan.EfCore;
 
 public class ApplicationDataContext : DbContext
 {

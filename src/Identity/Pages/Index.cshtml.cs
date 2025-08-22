@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CertManager.Identity.Pages;
+namespace Engrslan.Identity.Pages;
 
 public class IndexModel : PageModel
 {

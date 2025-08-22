@@ -1,8 +1,8 @@
-using CertManager.Domain.Identity;
+using Engrslan.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using OpenIddict.Abstractions;
 
-namespace CertManager.Identity.Services;
+namespace Engrslan.Identity.Services;
 
 public class OpenIddictDataSeeder : IHostedService
 {
@@ -58,7 +58,7 @@ public class OpenIddictDataSeeder : IHostedService
             new()
             {
                 ClientId = "certmanager-angular-client",
-                DisplayName = "CertManager Angular Client",
+                DisplayName = "Engrslan Angular Client",
                 ClientType = OpenIddictConstants.ClientTypes.Public,
                 ApplicationType = OpenIddictConstants.ApplicationTypes.Web,
                 ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
@@ -102,7 +102,7 @@ public class OpenIddictDataSeeder : IHostedService
             {
                 ClientId = "certmanager-api",
                 ClientSecret = "certmanager-api-secret-2024",
-                DisplayName = "CertManager API Resource Server",
+                DisplayName = "Engrslan API Resource Server",
                 ClientType = OpenIddictConstants.ClientTypes.Confidential,
                 Permissions =
                 {
@@ -176,12 +176,12 @@ public class OpenIddictDataSeeder : IHostedService
         // Empty list of scopes to seed - add your scopes here
         var scopes = new List<OpenIddictScopeDescriptor>
         {
-            // CertManager API Scope
+            // Engrslan API Scope
             new OpenIddictScopeDescriptor
             {
                 Name = "certmanager-api",
-                DisplayName = "CertManager API Access",
-                Description = "Allows access to the CertManager API",
+                DisplayName = "Engrslan API Access",
+                Description = "Allows access to the Engrslan API",
                 Resources = { "certmanager-api" }
             }
         };

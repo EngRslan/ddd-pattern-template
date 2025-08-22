@@ -1,9 +1,9 @@
-using CertManager.Domain.Interfaces;
-using CertManager.Domain.Shared.Events;
+using Engrslan.Domain.Interfaces;
+using Engrslan.Domain.Shared.Events;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace CertManager.EfCore.Interceptors;
+namespace Engrslan.EfCore.Interceptors;
 
 public class DomainEventDispatcherInterceptor : SaveChangesInterceptor
 {

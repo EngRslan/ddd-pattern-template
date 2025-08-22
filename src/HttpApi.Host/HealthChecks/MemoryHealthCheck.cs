@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 
-namespace CertManager.HttpApi.Host.HealthChecks;
+namespace Engrslan.HttpApi.Host.HealthChecks;
 
 /// <summary>
 /// Health check for monitoring memory usage

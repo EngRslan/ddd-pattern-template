@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace CertManager.Domain.Interfaces;
+namespace Engrslan.Domain.Interfaces;
 
 public interface IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
 {

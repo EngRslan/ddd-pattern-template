@@ -1,10 +1,10 @@
 using System.Net;
 using System.Net.Mail;
-using CertManager.Domain.Services;
+using Engrslan.Domain.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace CertManager.Infrastructure.Services;
+namespace Engrslan.Infrastructure.Services;
 
 /// <summary>
 /// Default implementation of IEmailSender using SMTP
@@ -251,7 +251,7 @@ public class EmailSender : IEmailSender
         // Return default templates
         return templateId switch
         {
-            "welcome" => "<h1>Welcome {{Name}}!</h1><p>Thank you for joining CertManager.</p>",
+            "welcome" => "<h1>Welcome {{Name}}!</h1><p>Thank you for joining Engrslan.</p>",
             "reset-password" => "<h1>Reset Your Password</h1><p>Click <a href='{{ResetLink}}'>here</a> to reset your password.</p>",
             "email-confirmation" => "<h1>Confirm Your Email</h1><p>Click <a href='{{ConfirmationLink}}'>here</a> to confirm your email.</p>",
             _ => "<p>{{Content}}</p>"
@@ -285,7 +285,7 @@ public class EmailSender : IEmailSender
             return ProcessTemplate(subject, data);
         }
         
-        return "Message from CertManager";
+        return "Message from Engrslan";
     }
 }
 
@@ -300,7 +300,7 @@ public class EmailSettings
     public string SmtpUsername { get; set; } = string.Empty;
     public string SmtpPassword { get; set; } = string.Empty;
     public string FromEmail { get; set; } = "noreply@certmanager.com";
-    public string FromName { get; set; } = "CertManager";
+    public string FromName { get; set; } = "Engrslan";
     public string? ReplyToEmail { get; set; }
     public string TemplatesPath { get; set; } = "EmailTemplates";
     public int MaxConcurrentSends { get; set; } = 5;

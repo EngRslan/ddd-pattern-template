@@ -1,4 +1,4 @@
-﻿namespace CertManager.HttpApi.Features.Samples.Home;
+﻿namespace Engrslan.HttpApi.Features.Samples.Home;
 
 public class HomeResponse
 {

@@ -1,9 +1,9 @@
 using System.Reflection;
-using CertManager.Domain.Identity;
+using Engrslan.Domain.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CertManager.EfCore;
+namespace Engrslan.EfCore;
 
 public class IdentityDataContext : IdentityDbContext<User,Role,Guid>
 {

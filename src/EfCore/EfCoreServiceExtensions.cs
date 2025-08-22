@@ -1,13 +1,13 @@
 using System.Reflection;
-using CertManager.Domain.Interfaces;
-using CertManager.Domain.Shared.DependencyInjection;
-using CertManager.EfCore.Interceptors;
-using CertManager.EfCore.Repositories;
+using Engrslan.Domain.Interfaces;
+using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.EfCore.Interceptors;
+using Engrslan.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CertManager.EfCore;
+namespace Engrslan.EfCore;
 
 public static class EfCoreServiceExtensions
 {

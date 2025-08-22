@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace CertManager.Domain.Shared.Events;
+namespace Engrslan.Domain.Shared.Events;
 
 public class EventDispatcher : IEventDispatcher
 {

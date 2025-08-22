@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
-using CertManager.Domain.Interfaces;
+using Engrslan.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CertManager.EfCore.Repositories;
+namespace Engrslan.EfCore.Repositories;
 
 public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
 {

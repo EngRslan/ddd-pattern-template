@@ -1,6 +1,6 @@
-using CertManager.Domain.Interfaces;
+using Engrslan.Domain.Interfaces;
 
-namespace CertManager.Domain.Entities;
+namespace Engrslan.Domain.Entities;
 
 public abstract class Entity : IEntity
 {

@@ -1,4 +1,4 @@
-namespace CertManager.Application.Contracts.Dtos;
+namespace Engrslan.Application.Contracts.Dtos;
 
 public abstract class BaseDto
 {

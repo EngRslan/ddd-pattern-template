@@ -4,17 +4,22 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>CertManager.Domain.Shared</RootNamespace>
+        <RootNamespace>Engrslan.Domain</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Localization\" />
+      <Folder Include="Services\" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="ErrorOr" Version="2.0.1" />
+      <ProjectReference Include="..\Domain.Shared\Engrslan.Domain.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+        <!--#if (UseIdentity)-->
+      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="9.0.0" />
+        <!--#endif-->
     </ItemGroup>
 
 </Project>

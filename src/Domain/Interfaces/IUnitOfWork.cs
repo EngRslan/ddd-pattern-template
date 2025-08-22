@@ -1,4 +1,4 @@
-namespace CertManager.Domain.Interfaces;
+namespace Engrslan.Domain.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {

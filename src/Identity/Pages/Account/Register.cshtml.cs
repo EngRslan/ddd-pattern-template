@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using CertManager.Domain.Identity;
-using CertManager.Domain.Services;
+using Engrslan.Domain.Identity;
+using Engrslan.Domain.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace CertManager.Identity.Pages.Account;
+namespace Engrslan.Identity.Pages.Account;
 
 [AllowAnonymous]
 public class Register : PageModel
@@ -121,16 +121,16 @@ public class Register : PageModel
                     protocol: Request.Scheme);
 
                 var emailBody = $@"
-                    <h2>Welcome to CertManager!</h2>
+                    <h2>Welcome to Engrslan!</h2>
                     <p>Hello {user.FirstName},</p>
-                    <p>Thank you for creating an account with CertManager.</p>
+                    <p>Thank you for creating an account with Engrslan.</p>
                     <p>Please confirm your email address by <a href='{HtmlEncoder.Default.Encode(callbackUrl!)}'>clicking here</a>.</p>
                     <p>If you did not create an account, please ignore this email.</p>
                     <hr>
-                    <p>Thanks,<br>The CertManager Team</p>
+                    <p>Thanks,<br>The Engrslan Team</p>
                 ";
 
-                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email - CertManager", emailBody);
+                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email - Engrslan", emailBody);
 
                 if (_userManager.Options.SignIn.RequireConfirmedAccount)
                 {

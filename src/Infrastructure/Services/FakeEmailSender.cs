@@ -1,8 +1,8 @@
-using CertManager.Domain.Services;
-using CertManager.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Services;
+using Engrslan.Domain.Shared.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace CertManager.Infrastructure.Services;
+namespace Engrslan.Infrastructure.Services;
 
 /// <summary>
 /// Fake email sender for development - writes to console/logs instead of sending real emails

@@ -1,26 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.HttpApi.Host", "src\HttpApi.Host\CertManager.HttpApi.Host.csproj", "{E106F4A8-E6B8-4809-8B9E-2E89DDF17AB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.HttpApi.Host", "src\HttpApi.Host\Engrslan.HttpApi.Host.csproj", "{E106F4A8-E6B8-4809-8B9E-2E89DDF17AB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Domain.Shared", "src\Domain.Shared\CertManager.Domain.Shared.csproj", "{A97D7331-8DE5-4614-AA3B-F94906C21B96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.Domain.Shared", "src\Domain.Shared\Engrslan.Domain.Shared.csproj", "{A97D7331-8DE5-4614-AA3B-F94906C21B96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Domain", "src\Domain\CertManager.Domain.csproj", "{44CF8501-E10C-477A-BBEA-57060BE7D4D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.Domain", "src\Domain\Engrslan.Domain.csproj", "{44CF8501-E10C-477A-BBEA-57060BE7D4D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Application", "src\Application\CertManager.Application.csproj", "{CD2E83E7-040C-48F4-8287-750BF4AB672C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.Application", "src\Application\Engrslan.Application.csproj", "{CD2E83E7-040C-48F4-8287-750BF4AB672C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Application.Contracts", "src\Application.Contracts\CertManager.Application.Contracts.csproj", "{95FEDD5A-26DB-4CAA-9DF4-E79FCBD7C1D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.Application.Contracts", "src\Application.Contracts\Engrslan.Application.Contracts.csproj", "{95FEDD5A-26DB-4CAA-9DF4-E79FCBD7C1D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.HttpApi", "src\HttpApi\CertManager.HttpApi.csproj", "{209ACFC8-E0B6-4997-8936-21BFE2EE1288}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.HttpApi", "src\HttpApi\Engrslan.HttpApi.csproj", "{209ACFC8-E0B6-4997-8936-21BFE2EE1288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.EfCore", "src\EfCore\CertManager.EfCore.csproj", "{E4E9B116-C73F-4E36-8693-E1E55AC31036}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.EfCore", "src\EfCore\Engrslan.EfCore.csproj", "{E4E9B116-C73F-4E36-8693-E1E55AC31036}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0AE3A083-FEF7-4FD0-B229-C51EE60AAFD7}"
 EndProject
 #if (UseIdentity)
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Identity", "src\Identity\CertManager.Identity.csproj", "{637818B9-B651-4013-86CE-4B8D38B58BA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.Identity", "src\Identity\Engrslan.Identity.csproj", "{637818B9-B651-4013-86CE-4B8D38B58BA7}"
 EndProject
 #endif
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertManager.Infrastructure", "src\Infrastructure\CertManager.Infrastructure.csproj", "{21B40DD0-A792-4FB6-B813-D8283C2F3311}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engrslan.Infrastructure", "src\Infrastructure\Engrslan.Infrastructure.csproj", "{21B40DD0-A792-4FB6-B813-D8283C2F3311}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,9 +14,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Application\CertManager.Application.csproj" />
-      <ProjectReference Include="..\EfCore\CertManager.EfCore.csproj" />
-      <ProjectReference Include="..\HttpApi\CertManager.HttpApi.csproj" />
+      <ProjectReference Include="..\Application\Engrslan.Application.csproj" />
+      <ProjectReference Include="..\EfCore\Engrslan.EfCore.csproj" />
+      <ProjectReference Include="..\HttpApi\Engrslan.HttpApi.csproj" />
     </ItemGroup>
 
     <ItemGroup>

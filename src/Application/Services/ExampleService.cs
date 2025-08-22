@@ -1,6 +1,6 @@
-using CertManager.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Shared.DependencyInjection;
 
-namespace CertManager.Application.Services;
+namespace Engrslan.Application.Services;
 
 public interface IExampleService
 {

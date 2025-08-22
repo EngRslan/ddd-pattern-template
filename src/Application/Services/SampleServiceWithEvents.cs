@@ -1,9 +1,9 @@
-using CertManager.Domain.Events;
-using CertManager.Domain.Shared.DependencyInjection;
-using CertManager.Domain.Shared.Events;
+using Engrslan.Domain.Events;
+using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Shared.Events;
 using Microsoft.Extensions.Logging;
 
-namespace CertManager.Application.Services;
+namespace Engrslan.Application.Services;
 
 public interface ISampleServiceWithEvents : ITransientService
 {

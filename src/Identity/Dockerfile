@@ -7,17 +7,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/CertManager.Identity/CertManager.Identity.csproj", "src/CertManager.Identity/"]
-RUN dotnet restore "src/CertManager.Identity/CertManager.Identity.csproj"
+COPY ["src/Engrslan.Identity/Engrslan.Identity.csproj", "src/Engrslan.Identity/"]
+RUN dotnet restore "src/Engrslan.Identity/Engrslan.Identity.csproj"
 COPY . .
-WORKDIR "/src/src/CertManager.Identity"
-RUN dotnet build "./CertManager.Identity.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/Engrslan.Identity"
+RUN dotnet build "./Engrslan.Identity.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./CertManager.Identity.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Engrslan.Identity.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CertManager.Identity.dll"]
+ENTRYPOINT ["dotnet", "Engrslan.Identity.dll"]

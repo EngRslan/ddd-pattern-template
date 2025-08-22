@@ -1,12 +1,12 @@
 using System.Text;
-using CertManager.Domain.Identity;
+using Engrslan.Domain.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace CertManager.Identity.Pages.Account;
+namespace Engrslan.Identity.Pages.Account;
 
 [AllowAnonymous]
 public class ConfirmEmail : PageModel

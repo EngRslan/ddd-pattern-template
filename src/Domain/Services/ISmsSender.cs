@@ -1,4 +1,4 @@
-namespace CertManager.Domain.Services;
+namespace Engrslan.Domain.Services;
 
 /// <summary>
 /// Interface for sending SMS messages across the application

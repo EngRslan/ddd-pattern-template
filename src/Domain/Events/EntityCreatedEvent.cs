@@ -1,6 +1,6 @@
-using CertManager.Domain.Shared.Events;
+using Engrslan.Domain.Shared.Events;
 
-namespace CertManager.Domain.Events;
+namespace Engrslan.Domain.Events;
 
 public class EntityCreatedEvent : DomainEventBase
 {

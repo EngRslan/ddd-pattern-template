@@ -1,7 +1,7 @@
-using CertManager.Domain.Services;
-using CertManager.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Services;
+using Engrslan.Domain.Shared.DependencyInjection;
 
-namespace CertManager.Application.Services;
+namespace Engrslan.Application.Services;
 
 public class DateTimeService : IDateTimeService, ISingletonService
 {

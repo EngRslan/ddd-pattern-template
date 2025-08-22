@@ -14,8 +14,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EfCore\CertManager.EfCore.csproj" />
-      <ProjectReference Include="..\Infrastructure\CertManager.Infrastructure.csproj" />
+      <ProjectReference Include="..\EfCore\Engrslan.EfCore.csproj" />
+      <ProjectReference Include="..\Infrastructure\Engrslan.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

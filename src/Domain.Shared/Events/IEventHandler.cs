@@ -1,4 +1,4 @@
-namespace CertManager.Domain.Shared.Events;
+namespace Engrslan.Domain.Shared.Events;
 
 public interface IEventHandler<in TEvent> where TEvent : IDomainEvent
 {

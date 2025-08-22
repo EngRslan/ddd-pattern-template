@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CertManager.Identity.Pages.Account.Manage;
+namespace Engrslan.Identity.Pages.Account.Manage;
 
 public class ShowRecoveryCodes : PageModel
 {

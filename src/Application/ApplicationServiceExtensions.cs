@@ -1,10 +1,10 @@
 using System.Reflection;
-using CertManager.Domain.Shared.DependencyInjection;
-using CertManager.Domain.Shared.Events;
+using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Shared.Events;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CertManager.Application;
+namespace Engrslan.Application;
 
 public static class ApplicationServiceExtensions
 {
@@ -16,7 +16,7 @@ public static class ApplicationServiceExtensions
         services.AddServicesFromAssembly(Assembly.GetExecutingAssembly());
         
         // Register validators
-        services.AddValidatorsFromAssembly(Assembly.Load("CertManager.Application.Contracts"));
+        services.AddValidatorsFromAssembly(Assembly.Load("Engrslan.Application.Contracts"));
         
         // Register domain events infrastructure
         services.AddDomainEvents();

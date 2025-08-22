@@ -1,9 +1,9 @@
-using CertManager.Application;
-using CertManager.Domain;
-using CertManager.EfCore;
-using CertManager.HttpApi;
+using Engrslan.Application;
+using Engrslan.Domain;
+using Engrslan.EfCore;
+using Engrslan.HttpApi;
 //#if (EnableHealthChecks)
-using CertManager.HttpApi.Host.HealthChecks;
+using Engrslan.HttpApi.Host.HealthChecks;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 //#endif
@@ -19,7 +19,7 @@ Log.Logger = new LoggerConfiguration()
 
 try
 {
-    Log.Information("Starting CertManager API Host");
+    Log.Information("Starting Engrslan API Host");
     
     var builder = WebApplication.CreateBuilder(args);
     
@@ -71,7 +71,7 @@ void ConfigureSerilog(WebApplicationBuilder webApplicationBuilder)
         .Enrich.WithMachineName()
         .Enrich.WithEnvironmentName()
         .Enrich.WithThreadId()
-        .Enrich.WithProperty("Application", "CertManager")
+        .Enrich.WithProperty("Application", "Engrslan")
         .WriteTo.Console(
             outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] [{SourceContext}] {Message:lj}{NewLine}{Exception}")
         .WriteTo.File(

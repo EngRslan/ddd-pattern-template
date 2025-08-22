@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace CertManager.HttpApi.Host.HealthChecks;
+namespace Engrslan.HttpApi.Host.HealthChecks;
 
 /// <summary>
 /// Custom health check for application-specific services and dependencies
@@ -26,7 +26,7 @@ public class ApplicationHealthCheck : IHealthCheck
         {
             var data = new Dictionary<string, object>
             {
-                ["service"] = "CertManager API",
+                ["service"] = "Engrslan API",
                 ["version"] = "1.0.0",
                 ["environment"] = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production",
                 ["timestamp"] = DateTime.UtcNow
@@ -35,9 +35,9 @@ public class ApplicationHealthCheck : IHealthCheck
             // Check if critical services are registered
             var criticalServices = new[]
             {
-                "CertManager.Domain.Interfaces.IUnitOfWork",
-                "CertManager.Application.Services.ExampleService",
-                "CertManager.HttpApi.Services.CurrentUser"
+                "Engrslan.Domain.Interfaces.IUnitOfWork",
+                "Engrslan.Application.Services.ExampleService",
+                "Engrslan.HttpApi.Services.CurrentUser"
             };
 
             var missingServices = new List<string>();

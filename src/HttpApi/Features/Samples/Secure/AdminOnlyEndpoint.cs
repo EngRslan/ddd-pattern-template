@@ -2,7 +2,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
-namespace CertManager.HttpApi.Features.Samples;
+namespace Engrslan.HttpApi.Features.Samples;
 
 /// <summary>
 /// Admin-only endpoint demonstrating role-based authorization

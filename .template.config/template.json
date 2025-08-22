@@ -4,12 +4,12 @@
   "classifications": ["Web", "API", "DDD", "Clean Architecture", "Angular"],
   "identity": "DDD.Pattern.Template",
   "name": "DDD Pattern Template",
-  "shortName": "ddd-template",
+  "shortName": "engrslan-ddd",
   "tags": {
     "language": "C#",
     "type": "project"
   },
-  "sourceName": "CertManager",
+  "sourceName": "Engrslan",
   "preferNameDirectory": true,
   "symbols": {
     "UseAngular": {
@@ -171,14 +171,14 @@
       "args": {
         "executable": "npm",
         "args": "install",
-        "workingDirectory": "CertManager.Host/ClientApp"
+        "workingDirectory": "src/HttpApi.Host/ClientApp"
       },
       "continueOnError": true
     }
   ],
   "primaryOutputs": [
     {
-      "path": "CertManager.sln"
+      "path": "Engrslan.sln"
     }
   ]
 }

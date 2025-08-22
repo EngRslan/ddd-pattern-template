@@ -1,8 +1,8 @@
-using CertManager.Domain.Events;
-using CertManager.Domain.Shared.Events;
+using Engrslan.Domain.Events;
+using Engrslan.Domain.Shared.Events;
 using Microsoft.Extensions.Logging;
 
-namespace CertManager.Application.EventHandlers;
+namespace Engrslan.Application.EventHandlers;
 
 public class EntityCreatedEventHandler : IEventHandler<EntityCreatedEvent>
 {

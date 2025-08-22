@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace CertManager.Domain.Identity;
+namespace Engrslan.Domain.Identity;
 
 public class Role : IdentityRole<Guid>
 {

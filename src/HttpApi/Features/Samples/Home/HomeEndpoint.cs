@@ -4,7 +4,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace CertManager.HttpApi.Features.Samples.Home;
+namespace Engrslan.HttpApi.Features.Samples.Home;
 
 
 public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
@@ -32,7 +32,7 @@ public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
     {
         var response = new HomeResponse
         {
-            Message = "Welcome to CertManager API - Domain Driven Design Template",
+            Message = "Welcome to Engrslan API - Domain Driven Design Template",
             Warning = "⚠️ DELETE THIS ENDPOINT IMMEDIATELY! This exposes sensitive server information and should not exist in production!",
             Server = new HomeResponse.ServerInfo
             {
@@ -46,7 +46,7 @@ public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
             },
             Application = new HomeResponse.ApplicationInfo
             {
-                Name = Assembly.GetEntryAssembly()?.GetName().Name ?? "CertManager",
+                Name = Assembly.GetEntryAssembly()?.GetName().Name ?? "Engrslan",
                 Version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "1.0.0",
                 Environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production",
                 Uptime = DateTime.UtcNow - StartTime,

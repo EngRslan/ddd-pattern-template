@@ -1,8 +1,8 @@
-using CertManager.Domain.Interfaces;
-using CertManager.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Interfaces;
+using Engrslan.Domain.Shared.DependencyInjection;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace CertManager.EfCore.Repositories;
+namespace Engrslan.EfCore.Repositories;
 
 public class UnitOfWork : IUnitOfWork, IScopedService
 {

@@ -1,4 +1,4 @@
-namespace CertManager.Application.Contracts.Services;
+namespace Engrslan.Application.Contracts.Services;
 
 public interface ICacheService
 {

@@ -1,11 +1,11 @@
 using System.Net;
 using System.Text.Json;
-using CertManager.Domain.Shared.Exceptions;
+using Engrslan.Domain.Shared.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace CertManager.HttpApi.Middleware;
+namespace Engrslan.HttpApi.Middleware;
 
 public class GlobalExceptionHandlingMiddleware
 {

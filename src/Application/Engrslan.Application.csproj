@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>CertManager.Application</RootNamespace>
+        <RootNamespace>Engrslan.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,9 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Application.Contracts\CertManager.Application.Contracts.csproj" />
-      <ProjectReference Include="..\Domain\CertManager.Domain.csproj" />
-      <ProjectReference Include="..\Domain.Shared\CertManager.Domain.Shared.csproj" />
+      <ProjectReference Include="..\Application.Contracts\Engrslan.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Domain\Engrslan.Domain.csproj" />
+      <ProjectReference Include="..\Domain.Shared\Engrslan.Domain.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

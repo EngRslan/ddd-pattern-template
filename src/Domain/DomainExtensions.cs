@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CertManager.Domain;
+namespace Engrslan.Domain;
 
 public static class DomainExtensions
 {

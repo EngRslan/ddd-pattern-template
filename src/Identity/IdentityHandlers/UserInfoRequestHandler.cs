@@ -1,4 +1,4 @@
-using CertManager.Domain.Identity;
+using Engrslan.Domain.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +7,7 @@ using OpenIddict.Server;
 using OpenIddict.Server.AspNetCore;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace CertManager.Identity.IdentityHandlers;
+namespace Engrslan.Identity.IdentityHandlers;
 
 public class UserInfoRequestHandler : IOpenIddictServerHandler<OpenIddictServerEvents.HandleUserInfoRequestContext>
 {

@@ -1,8 +1,8 @@
 using System.Text.RegularExpressions;
-using CertManager.Domain.Shared.Errors;
+using Engrslan.Domain.Shared.Errors;
 using ErrorOr;
 
-namespace CertManager.Domain.ValueObjects;
+namespace Engrslan.Domain.ValueObjects;
 
 public sealed class Email : ValueObject
 {

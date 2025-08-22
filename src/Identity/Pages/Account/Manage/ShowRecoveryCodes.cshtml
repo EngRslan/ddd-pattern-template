@@ -1,5 +1,5 @@
 @page
-@model CertManager.Identity.Pages.Account.Manage.ShowRecoveryCodes
+@model Engrslan.Identity.Pages.Account.Manage.ShowRecoveryCodes
 @{
     ViewData["Title"] = "Recovery Codes";
     Layout = "_ManageLayout";
@@ -119,10 +119,10 @@
         function printRecoveryCodes() {
             var printContent = document.getElementById('recoveryCodes').innerHTML;
             var printWindow = window.open('', '_blank');
-            printWindow.document.write('<html><head><title>Recovery Codes - CertManager</title>');
+            printWindow.document.write('<html><head><title>Recovery Codes - Engrslan</title>');
             printWindow.document.write('<style>body { font-family: monospace; padding: 20px; }</style>');
             printWindow.document.write('</head><body>');
-            printWindow.document.write('<h2>CertManager - Two-Factor Authentication Recovery Codes</h2>');
+            printWindow.document.write('<h2>Engrslan - Two-Factor Authentication Recovery Codes</h2>');
             printWindow.document.write('<p>Store these codes in a safe place. Each code can only be used once.</p>');
             printWindow.document.write(printContent);
             printWindow.document.write('<p style="margin-top: 30px;">Generated: ' + new Date().toLocaleString() + '</p>');
@@ -132,7 +132,7 @@
         }
 
         function downloadRecoveryCodes() {
-            var codesText = 'CertManager - Two-Factor Authentication Recovery Codes\n';
+            var codesText = 'Engrslan - Two-Factor Authentication Recovery Codes\n';
             codesText += 'Generated: ' + new Date().toLocaleString() + '\n';
             codesText += '=========================================\n\n';
             codesText += getRecoveryCodesText();
@@ -144,7 +144,7 @@
             var url = window.URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
-            a.download = 'CertManager_Recovery_Codes_' + Date.now() + '.txt';
+            a.download = 'Engrslan_Recovery_Codes_' + Date.now() + '.txt';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

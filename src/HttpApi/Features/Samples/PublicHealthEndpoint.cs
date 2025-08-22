@@ -1,7 +1,7 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 
-namespace CertManager.HttpApi.Features.Samples;
+namespace Engrslan.HttpApi.Features.Samples;
 
 /// <summary>
 /// Public health check endpoint (no authentication required)
@@ -27,7 +27,7 @@ public class PublicHealthEndpoint : EndpointWithoutRequest<HealthResponse>
         {
             Status = "Healthy",
             Timestamp = DateTime.UtcNow,
-            Service = "CertManager API"
+            Service = "Engrslan API"
         };
 
         await Send.OkAsync(response, ct);

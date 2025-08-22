@@ -1,4 +1,4 @@
-namespace CertManager.Domain.ValueObjects;
+namespace Engrslan.Domain.ValueObjects;
 
 public abstract class ValueObject : IEquatable<ValueObject>
 {

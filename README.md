@@ -352,7 +352,7 @@ Automatically restores NuGet packages and runs npm install after project creatio
 
 After creating a project from the template:
 
-1. **Update the namespace** - The template will rename `CertManager` to your project name automatically
+1. **Update the namespace** - The template will rename `Engrslan` to your project name automatically
 2. **Configure connection strings** - Update database connections in appsettings.json files
 3. **Run database migrations** - Apply EF Core migrations to create the database schema
 4. **Configure CORS** - Update allowed origins for your environment

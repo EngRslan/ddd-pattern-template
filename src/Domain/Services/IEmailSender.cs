@@ -1,4 +1,4 @@
-namespace CertManager.Domain.Services;
+namespace Engrslan.Domain.Services;
 
 /// <summary>
 /// Interface for sending emails across the application

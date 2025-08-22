@@ -2,7 +2,7 @@ using FastEndpoints;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace CertManager.HttpApi.Features.Samples;
+namespace Engrslan.HttpApi.Features.Samples;
 
 /// <summary>
 /// Sample protected endpoint demonstrating OpenIddict authentication

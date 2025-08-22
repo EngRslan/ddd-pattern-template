@@ -4,11 +4,11 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>CertManager.Infrastructure</RootNamespace>
+        <RootNamespace>Engrslan.Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Domain\CertManager.Domain.csproj" />
+      <ProjectReference Include="..\Domain\Engrslan.Domain.csproj" />
     </ItemGroup>
     
     <ItemGroup>

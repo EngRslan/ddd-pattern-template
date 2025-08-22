@@ -1,4 +1,4 @@
-using CertManager.Domain.Identity;
+using Engrslan.Domain.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 
-namespace CertManager.Identity.Pages.Account;
+namespace Engrslan.Identity.Pages.Account;
 
 [AllowAnonymous]
 public class Logout : PageModel

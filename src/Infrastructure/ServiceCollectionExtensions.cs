@@ -1,8 +1,8 @@
 using System.Reflection;
-using CertManager.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Shared.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CertManager.Infrastructure;
+namespace Engrslan.Infrastructure;
 
 /// <summary>
 /// Extension methods for registering Infrastructure services

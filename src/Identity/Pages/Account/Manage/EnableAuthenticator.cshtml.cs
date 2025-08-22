@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using CertManager.Domain.Identity;
+using Engrslan.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CertManager.Identity.Pages.Account.Manage;
+namespace Engrslan.Identity.Pages.Account.Manage;
 
 public class EnableAuthenticator : PageModel
 {
@@ -142,7 +142,7 @@ public class EnableAuthenticator : PageModel
     {
         return string.Format(
             AuthenticatorUriFormat,
-            _urlEncoder.Encode("CertManager"),
+            _urlEncoder.Encode("Engrslan"),
             _urlEncoder.Encode(email),
             unformattedKey);
     }

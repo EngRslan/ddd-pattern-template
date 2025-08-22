@@ -1,9 +1,9 @@
 using System.Security.Claims;
-using CertManager.Domain.Interfaces;
-using CertManager.Domain.Shared.DependencyInjection;
+using Engrslan.Domain.Interfaces;
+using Engrslan.Domain.Shared.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 
-namespace CertManager.HttpApi.Services;
+namespace Engrslan.HttpApi.Services;
 
 public class CurrentUser : ICurrentUser, IScopedService
 {

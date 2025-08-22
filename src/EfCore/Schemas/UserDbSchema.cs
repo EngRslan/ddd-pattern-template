@@ -1,8 +1,8 @@
-﻿using CertManager.Domain.Identity;
+﻿using Engrslan.Domain.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CertManager.EfCore.Schemas;
+namespace Engrslan.EfCore.Schemas;
 
 public class UserDbSchema : IEntityTypeConfiguration<User>
 {

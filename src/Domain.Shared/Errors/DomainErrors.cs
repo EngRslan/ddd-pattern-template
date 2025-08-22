@@ -1,6 +1,6 @@
 using ErrorOr;
 
-namespace CertManager.Domain.Shared.Errors;
+namespace Engrslan.Domain.Shared.Errors;
 
 public static class DomainErrors
 {

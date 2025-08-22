@@ -1,9 +1,9 @@
 using System.Text.Json;
-using CertManager.Application.Contracts.Services;
-using CertManager.Domain.Shared.DependencyInjection;
+using Engrslan.Application.Contracts.Services;
+using Engrslan.Domain.Shared.DependencyInjection;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace CertManager.Application.Services;
+namespace Engrslan.Application.Services;
 
 public class MemoryCacheService : ICacheService, ISingletonService
 {
