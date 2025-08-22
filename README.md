@@ -9,6 +9,41 @@ A comprehensive Domain-Driven Design (DDD) pattern template for building scalabl
   <img src="https://img.shields.io/badge/License-MIT%20with%20Restrictions-green?style=for-the-badge" alt="License">
 </p>
 
+## 📑 Table of Contents
+
+- [📜 License](#-license)
+- [🎯 Overview](#-overview)
+  - [Key Highlights](#key-highlights)
+- [🚀 Features](#-features)
+  - [Backend (.NET 9)](#backend-net-9)
+  - [Frontend (Angular 19)](#frontend-angular-19)
+- [📁 Project Structure](#-project-structure)
+- [🛠️ Technology Stack](#️-technology-stack)
+- [🚦 Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+- [📦 Template Installation](#-template-installation)
+  - [Install as .NET Template](#install-as-net-template)
+  - [Create New Project from Template](#create-new-project-from-template)
+  - [Template Parameters](#template-parameters)
+  - [Template Usage Examples](#template-usage-examples)
+  - [Post-Installation Steps](#post-installation-steps)
+  - [Installation](#installation)
+  - [Development](#development)
+  - [Configuration](#configuration)
+- [📖 Usage](#-usage)
+  - [Creating a New Entity](#creating-a-new-entity)
+  - [Using Role-Based Directives](#using-role-based-directives)
+- [🧪 Testing](#-testing)
+- [📊 Health Checks](#-health-checks)
+- [🔒 Security](#-security)
+  - [Authentication Flow](#authentication-flow)
+  - [Security Best Practices](#security-best-practices)
+- [🤝 Contributing](#-contributing)
+- [📚 Documentation](#-documentation)
+- [📝 Roadmap](#-roadmap)
+- [👤 Credits](#-credits)
+- [🙏 Acknowledgments](#-acknowledgments)
+
 ## 📜 License
 
 This template is **FREE to use** for your projects, but **commercial resale is restricted**. See [LICENSE.md](LICENSE.md) for details.
@@ -231,6 +266,98 @@ ddd-pattern-template/
 - [Visual Studio 2022](https://visualstudio.microsoft.com/) or [Visual Studio Code](https://code.visualstudio.com/)
 - [Angular CLI](https://angular.io/cli) `npm install -g @angular/cli`
 
+## 📦 Template Installation
+
+### Install as .NET Template
+
+1. **Install from NuGet (When Published)**
+   ```bash
+   dotnet new install DDD.Pattern.Template
+   ```
+
+2. **Install from Local Source**
+   ```bash
+   # Clone the repository
+   git clone https://github.com/EngRslan/ddd-pattern-template.git
+   cd ddd-pattern-template
+   
+   # Install the template locally
+   dotnet new install .
+   ```
+
+### Create New Project from Template
+
+```bash
+# Create with default settings
+dotnet new ddd-template -n YourProjectName
+
+# Create with custom options
+dotnet new ddd-template -n YourProjectName \
+  --UseAngular true \
+  --UseDocker true \
+  --IncludeSampleCode true \
+  --UseIdentity true \
+  --EnableHealthChecks true \
+  --skipRestore false
+```
+
+### Template Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `--UseAngular` | bool | `true` | Include Angular frontend application with OIDC authentication, dashboard, and role-based directives |
+| `--UseDocker` | bool | `true` | Include Docker support with Dockerfile and docker-compose configurations |
+| `--IncludeSampleCode` | bool | `true` | Include sample entities, services, DTOs, and validators to demonstrate DDD patterns |
+| `--UseIdentity` | bool | `true` | Include OpenIddict Identity Server for OAuth2/OpenID Connect authentication |
+| `--EnableHealthChecks` | bool | `true` | Enable health check endpoints for production monitoring |
+| `--skipRestore` | bool | `true` | Skip automatic restore of NuGet and npm packages during project creation |
+
+### Template Usage Examples
+
+#### Full-Featured Application (Default)
+```bash
+dotnet new ddd-template -n MyApp
+```
+Creates a complete DDD application with Angular frontend, Identity Server, Docker support, sample code, and health checks.
+
+#### API-Only (No Frontend)
+```bash
+dotnet new ddd-template -n MyApi --UseAngular false
+```
+Creates a backend-only API without the Angular frontend.
+
+#### Clean Template (No Samples)
+```bash
+dotnet new ddd-template -n MyApp --IncludeSampleCode false
+```
+Creates the template structure without sample entities and services.
+
+#### Minimal API (No Identity, No Docker)
+```bash
+dotnet new ddd-template -n MyMinimalApi \
+  --UseAngular false \
+  --UseDocker false \
+  --UseIdentity false \
+  --IncludeSampleCode false
+```
+Creates a minimal DDD API without authentication, frontend, or containerization.
+
+#### Auto-Restore Dependencies
+```bash
+dotnet new ddd-template -n MyApp --skipRestore false
+```
+Automatically restores NuGet packages and runs npm install after project creation.
+
+### Post-Installation Steps
+
+After creating a project from the template:
+
+1. **Update the namespace** - The template will rename `CertManager` to your project name automatically
+2. **Configure connection strings** - Update database connections in appsettings.json files
+3. **Run database migrations** - Apply EF Core migrations to create the database schema
+4. **Configure CORS** - Update allowed origins for your environment
+5. **Start development** - Run Identity Server and API Host projects
+
 ### Installation
 
 1. **Clone the repository**
@@ -266,14 +393,14 @@ ddd-pattern-template/
    ```bash
    cd src/Identity
    dotnet run
-   # Identity server will run on https://localhost:5001
+   # Identity server will run on https://localhost:{{generated}}
    ```
 
 6. **Run the API Host**
    ```bash
    cd src/HttpApi.Host
    dotnet run
-   # API will run on https://localhost:5002
+   # API will run on https://localhost:{{generated}}
    # Angular app will run on http://localhost:4200
    ```
 
