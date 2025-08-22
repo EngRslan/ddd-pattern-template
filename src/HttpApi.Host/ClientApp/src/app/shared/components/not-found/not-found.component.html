@@ -1,0 +1,75 @@
+<div class="error-container">
+  <div class="error-content">
+    <div class="error-code">404</div>
+    <div class="error-message">
+      <h1>Page Not Found</h1>
+      <p>The page you're looking for doesn't exist or has been moved.</p>
+    </div>
+    
+    <div class="error-illustration">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background Circle -->
+        <circle cx="200" cy="150" r="120" fill="url(#gradient)" opacity="0.1"/>
+        
+        <!-- Magnifying Glass -->
+        <g transform="translate(200, 150)">
+          <!-- Glass Circle -->
+          <circle cx="0" cy="0" r="45" 
+                  stroke="currentColor" 
+                  stroke-width="6" 
+                  fill="none" 
+                  opacity="0.8"/>
+          
+          <!-- Handle -->
+          <line x1="32" y1="32" 
+                x2="55" y2="55" 
+                stroke="currentColor" 
+                stroke-width="6" 
+                stroke-linecap="round"
+                opacity="0.8"/>
+          
+          <!-- Question Mark inside glass -->
+          <text x="0" y="10" 
+                text-anchor="middle" 
+                font-size="40" 
+                font-weight="bold" 
+                fill="currentColor"
+                opacity="0.6">?</text>
+        </g>
+        
+        <!-- Floating elements -->
+        <circle class="floating-element" cx="100" cy="80" r="4" fill="currentColor" opacity="0.3"/>
+        <circle class="floating-element delay-1" cx="300" cy="100" r="3" fill="currentColor" opacity="0.3"/>
+        <circle class="floating-element delay-2" cx="120" cy="200" r="5" fill="currentColor" opacity="0.3"/>
+        <circle class="floating-element delay-3" cx="280" cy="220" r="4" fill="currentColor" opacity="0.3"/>
+        
+        <!-- Gradient Definition -->
+        <defs>
+          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    
+    <div class="action-buttons">
+      <button class="btn btn-primary" (click)="goHome()">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        </svg>
+        Go to Homepage
+      </button>
+      <button class="btn btn-secondary" (click)="goBack()">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+        </svg>
+        Go Back
+      </button>
+    </div>
+    
+    <div class="help-text">
+      <p>Need help? <a href="/contact">Contact Support</a></p>
+    </div>
+  </div>
+</div>

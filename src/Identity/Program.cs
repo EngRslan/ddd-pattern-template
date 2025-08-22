@@ -11,99 +11,166 @@ using OpenIddict.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure CORS
-const string defaultCorsPolicy = "DefaultPolicy";
-
-var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? ["*"];
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(defaultCorsPolicy, policyBuilder =>
-    {
-        if (allowedOrigins.Contains("*"))
-        {
-            policyBuilder.AllowAnyOrigin()
-                         .AllowAnyMethod()
-                         .AllowAnyHeader();
-        }
-        else
-        {
-            policyBuilder.WithOrigins(allowedOrigins)
-                         .AllowAnyMethod()
-                         .AllowAnyHeader()
-                         .AllowCredentials();
-        }
-    });
-});
-
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-}
-else
-{
-    builder.Services.AddRazorPages();
-}
-
-builder.Services.AddDbContext<IdentityDataContext>(conf =>
-{
-    conf.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    conf.UseOpenIddict();
-});
-
-builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<IdentityDataContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.AddDomain();
-builder.Services.AddInfrastructureServices();
-
-builder.Services.AddOpenIddict()
-    .AddCore(idCore =>
-{
-    idCore.UseEntityFrameworkCore().UseDbContext<IdentityDataContext>();
-}).AddServer(idServer =>
-{
-    idServer.SetTokenEndpointUris("/connect/token")
-        .SetAuthorizationEndpointUris("/connect/authorize")
-        .SetIntrospectionEndpointUris("/connect/introspect")
-        .SetEndSessionEndpointUris("/connect/endsession")
-        .SetUserInfoEndpointUris("/connect/userinfo")
-        .AllowAuthorizationCodeFlow()
-        .AllowRefreshTokenFlow()
-        .AllowClientCredentialsFlow()
-        .AllowPasswordFlow();
-
-    idServer.AddDevelopmentEncryptionCertificate();
-    idServer.AddDevelopmentSigningCertificate();
-
-    idServer.RegisterScopes(OpenIddictConstants.Scopes.Email, OpenIddictConstants.Scopes.Profile, OpenIddictConstants.Scopes.Roles);
-    
-    idServer.AddEventHandler<OpenIddictServerEvents.HandleAuthorizationRequestContext>(x => x.UseScopedHandler<AuthorizeRequestHandler>());
-    idServer.AddEventHandler<OpenIddictServerEvents.HandleTokenRequestContext>(x => x.UseScopedHandler<TokenRequestHandler>());
-    idServer.AddEventHandler<OpenIddictServerEvents.HandleEndSessionRequestContext>(x =>
-        x.UseScopedHandler<LogoutRequestHandler>());
-    idServer.AddEventHandler<OpenIddictServerEvents.HandleUserInfoRequestContext>(x =>
-        x.UseScopedHandler<UserInfoRequestHandler>());
-
-    idServer.UseAspNetCore();
-
-});
-
-// Register the OpenIddict data seeder as a hosted service
-builder.Services.AddHostedService<OpenIddictDataSeeder>();
+// Configure services
+ConfigureCors(builder.Services, builder.Configuration);
+ConfigureRazorPages(builder.Services, builder.Environment);
+ConfigureDatabase(builder.Services, builder.Configuration);
+ConfigureIdentity(builder.Services);
+ConfigureDomainAndInfrastructure(builder.Services);
+ConfigureOpenIddict(builder.Services);
+ConfigureHostedServices(builder.Services);
 
 var app = builder.Build();
 
-if(app.Environment.IsDevelopment())
+// Configure middleware pipeline
+ConfigureMiddleware(app);
+
+app.Run();
+return;
+
+void ConfigureCors(IServiceCollection services, IConfiguration configuration)
 {
-    app.UseDeveloperExceptionPage();
+    const string defaultCorsPolicy = "DefaultPolicy";
+    var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>() ?? ["*"];
+
+    services.AddCors(options =>
+    {
+        options.AddPolicy(defaultCorsPolicy, policyBuilder =>
+        {
+            if (allowedOrigins.Contains("*"))
+            {
+                policyBuilder.AllowAnyOrigin()
+                             .AllowAnyMethod()
+                             .AllowAnyHeader();
+            }
+            else
+            {
+                policyBuilder.WithOrigins(allowedOrigins)
+                             .AllowAnyMethod()
+                             .AllowAnyHeader()
+                             .AllowCredentials();
+            }
+        });
+    });
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseCors(defaultCorsPolicy);
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapRazorPages();
-app.Run();
+void ConfigureRazorPages(IServiceCollection services, IWebHostEnvironment environment)
+{
+    if (environment.IsDevelopment())
+    {
+        services.AddRazorPages().AddRazorRuntimeCompilation();
+    }
+    else
+    {
+        services.AddRazorPages();
+    }
+}
+
+void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
+{
+    services.AddDbContext<IdentityDataContext>(options =>
+    {
+        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        options.UseOpenIddict();
+    });
+}
+
+void ConfigureIdentity(IServiceCollection services)
+{
+    services.AddIdentity<User, Role>()
+        .AddEntityFrameworkStores<IdentityDataContext>()
+        .AddDefaultTokenProviders();
+}
+
+void ConfigureDomainAndInfrastructure(IServiceCollection services)
+{
+    services.AddDomain();
+    services.AddInfrastructureServices();
+}
+
+void ConfigureOpenIddict(IServiceCollection services)
+{
+    services.AddOpenIddict()
+        .AddCore(options =>
+        {
+            options.UseEntityFrameworkCore()
+                   .UseDbContext<IdentityDataContext>();
+        })
+        .AddServer(options =>
+        {
+            ConfigureOpenIddictEndpoints(options);
+            ConfigureOpenIddictFlows(options);
+            ConfigureOpenIddictCertificates(options);
+            ConfigureOpenIddictScopes(options);
+            ConfigureOpenIddictEventHandlers(options);
+            
+            options.UseAspNetCore();
+        });
+}
+
+void ConfigureOpenIddictEndpoints(OpenIddictServerBuilder options)
+{
+    options.SetTokenEndpointUris("/connect/token")
+           .SetAuthorizationEndpointUris("/connect/authorize")
+           .SetIntrospectionEndpointUris("/connect/introspect")
+           .SetEndSessionEndpointUris("/connect/endsession")
+           .SetUserInfoEndpointUris("/connect/userinfo");
+}
+
+void ConfigureOpenIddictFlows(OpenIddictServerBuilder options)
+{
+    options.AllowAuthorizationCodeFlow()
+           .AllowRefreshTokenFlow()
+           .AllowClientCredentialsFlow()
+           .AllowPasswordFlow();
+}
+
+void ConfigureOpenIddictCertificates(OpenIddictServerBuilder options)
+{
+    options.AddDevelopmentEncryptionCertificate()
+           .AddDevelopmentSigningCertificate();
+}
+
+void ConfigureOpenIddictScopes(OpenIddictServerBuilder options)
+{
+    options.RegisterScopes(
+        OpenIddictConstants.Scopes.Email,
+        OpenIddictConstants.Scopes.Profile,
+        OpenIddictConstants.Scopes.Roles
+    );
+}
+
+void ConfigureOpenIddictEventHandlers(OpenIddictServerBuilder options)
+{
+    options.AddEventHandler<OpenIddictServerEvents.HandleAuthorizationRequestContext>(x => 
+        x.UseScopedHandler<AuthorizeRequestHandler>());
+    
+    options.AddEventHandler<OpenIddictServerEvents.HandleTokenRequestContext>(x => 
+        x.UseScopedHandler<TokenRequestHandler>());
+    
+    options.AddEventHandler<OpenIddictServerEvents.HandleEndSessionRequestContext>(x =>
+        x.UseScopedHandler<LogoutRequestHandler>());
+    
+    options.AddEventHandler<OpenIddictServerEvents.HandleUserInfoRequestContext>(x =>
+        x.UseScopedHandler<UserInfoRequestHandler>());
+}
+
+void ConfigureHostedServices(IServiceCollection services)
+{
+    services.AddHostedService<OpenIddictDataSeeder>();
+}
+
+void ConfigureMiddleware(WebApplication app)
+{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+    app.UseCors("DefaultPolicy");
+    app.UseAuthentication();
+    app.UseAuthorization();
+    app.MapRazorPages();
+}

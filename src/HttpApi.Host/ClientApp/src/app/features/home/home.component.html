@@ -15,7 +15,9 @@
           <a (click)="scrollToSection('architecture')">Architecture</a>
           <a (click)="scrollToSection('started')">Get Started</a>
           <a (click)="scrollToSection('about')">About</a>
+          <!--#if(UseIdentity)-->
           <a routerLink="/dashboard" class="dashboard-link">Dashboard</a>
+          <!--#endif-->
         </div>
       </div>
     </nav>

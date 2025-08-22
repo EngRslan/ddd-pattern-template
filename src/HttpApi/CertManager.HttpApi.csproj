@@ -12,8 +12,10 @@
       <PackageReference Include="FastEndpoints.Swagger" Version="7.0.1" />
       <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
       <PackageReference Include="Scalar.AspNetCore" Version="2.6.9" />
+        <!--#if(UseIdentity)-->
       <PackageReference Include="OpenIddict.Validation.AspNetCore" Version="6.0.0" />
       <PackageReference Include="OpenIddict.Validation.SystemNetHttp" Version="6.0.0" />
+        <!--#endif-->
     </ItemGroup>
 
     <ItemGroup>

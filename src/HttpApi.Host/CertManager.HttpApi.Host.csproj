@@ -20,10 +20,14 @@
     </ItemGroup>
 
     <ItemGroup>
+        <!--#if(UseAngular)-->
       <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="9.0.0" />
+        <!--#endif-->
+        <!--#if (EnableHealthChecks)-->
       <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
       <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
       <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.0.0" />
+        <!--#endif-->
       <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
       <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
       <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />

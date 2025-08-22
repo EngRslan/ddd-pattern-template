@@ -40,10 +40,10 @@ export const authInterceptor: HttpInterceptorFn = (
           if (error.status === 401) {
             authService.login().catch(loginError => {
               console.error('Failed to redirect to login:', loginError);
-              router.navigate(['/unauthorized']);
+              router.navigate(['/not-authorized']);
             });
           } else if (error.status === 403) {
-            router.navigate(['/forbidden']);
+            router.navigate(['/not-authorized']);
           }
           
           return throwError(() => error);

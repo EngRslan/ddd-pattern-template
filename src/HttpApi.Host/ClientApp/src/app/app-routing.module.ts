@@ -4,6 +4,8 @@ import {authGuard} from './core/guards/auth.guard';
 import {DashboardComponent} from './features/dashboard/dashboard.component';
 import {HomeComponent} from './features/home/home.component';
 import {AuthCallbackComponent} from './features/auth-callback/auth-callback.component';
+import {NotFoundComponent} from './shared/components/not-found/not-found.component';
+import {NotAuthorizedComponent} from './shared/components/not-authorized/not-authorized.component';
 
 const routes: Routes = [
   {
@@ -20,9 +22,17 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'not-authorized',
+    component: NotAuthorizedComponent
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 

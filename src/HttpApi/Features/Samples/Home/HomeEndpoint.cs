@@ -14,7 +14,6 @@ public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
     public override void Configure()
     {
         Get("/home");
-        Roles();
         Options(x=>x.WithTags("Samples"));
         Summary(s =>
         {

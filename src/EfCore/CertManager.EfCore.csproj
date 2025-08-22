@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <Folder Include="Repositories\" />
+      <Folder Include="Schemas\.gitkeep\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -16,7 +17,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <!--#if (UseIdentity)-->
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
+        <!--#endif-->
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">

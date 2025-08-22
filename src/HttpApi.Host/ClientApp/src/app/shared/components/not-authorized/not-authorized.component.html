@@ -1,0 +1,114 @@
+<div class="error-container">
+  <div class="error-content">
+    <div class="error-code">403</div>
+    <div class="error-message">
+      <h1>Access Denied</h1>
+      <p *ngIf="!isAuthenticated">Please log in to access this resource.</p>
+      <p *ngIf="isAuthenticated">You don't have permission to access this resource.</p>
+    </div>
+    
+    <div class="error-illustration">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background Shield -->
+        <g transform="translate(200, 150)">
+          <!-- Shield Shape -->
+          <path d="M0,-70 C-40,-70 -60,-50 -60,-20 L-60,30 C-60,70 0,90 0,90 C0,90 60,70 60,30 L60,-20 C60,-50 40,-70 0,-70Z" 
+                fill="url(#shieldGradient)" 
+                opacity="0.1"/>
+          
+          <!-- Lock Icon -->
+          <g transform="translate(0, -10)">
+            <!-- Lock Body -->
+            <rect x="-25" y="0" width="50" height="35" rx="4" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="4"
+                  opacity="0.8"/>
+            
+            <!-- Lock Shackle -->
+            <path d="M-15,-15 C-15,-25 -10,-30 0,-30 C10,-30 15,-25 15,-15 L15,0" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="4"
+                  stroke-linecap="round"
+                  opacity="0.8"/>
+            
+            <!-- Keyhole -->
+            <circle cx="0" cy="15" r="4" fill="currentColor" opacity="0.6"/>
+            <rect x="-2" y="15" width="4" height="10" fill="currentColor" opacity="0.6"/>
+          </g>
+        </g>
+        
+        <!-- Decorative Elements -->
+        <circle class="pulse-element" cx="200" cy="150" r="100" 
+                stroke="currentColor" 
+                stroke-width="1" 
+                fill="none" 
+                opacity="0.2"/>
+        <circle class="pulse-element delay-1" cx="200" cy="150" r="120" 
+                stroke="currentColor" 
+                stroke-width="1" 
+                fill="none" 
+                opacity="0.15"/>
+        <circle class="pulse-element delay-2" cx="200" cy="150" r="140" 
+                stroke="currentColor" 
+                stroke-width="1" 
+                fill="none" 
+                opacity="0.1"/>
+        
+        <!-- Floating Lock Icons -->
+        <g class="floating-lock" transform="translate(100, 80)">
+          <rect x="-8" y="0" width="16" height="12" rx="2" fill="currentColor" opacity="0.2"/>
+          <path d="M-5,-5 C-5,-8 -3,-10 0,-10 C3,-10 5,-8 5,-5 L5,0" 
+                fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+        </g>
+        
+        <g class="floating-lock delay-1" transform="translate(300, 100)">
+          <rect x="-8" y="0" width="16" height="12" rx="2" fill="currentColor" opacity="0.2"/>
+          <path d="M-5,-5 C-5,-8 -3,-10 0,-10 C3,-10 5,-8 5,-5 L5,0" 
+                fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+        </g>
+        
+        <g class="floating-lock delay-2" transform="translate(120, 200)">
+          <rect x="-8" y="0" width="16" height="12" rx="2" fill="currentColor" opacity="0.2"/>
+          <path d="M-5,-5 C-5,-8 -3,-10 0,-10 C3,-10 5,-8 5,-5 L5,0" 
+                fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+        </g>
+        
+        <!-- Gradient Definitions -->
+        <defs>
+          <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#f56565;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ed8936;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    
+    <div class="action-buttons">
+      <button *ngIf="!isAuthenticated" class="btn btn-primary" (click)="login()">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+        Sign In
+      </button>
+      <button class="btn btn-secondary" (click)="goHome()">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        </svg>
+        Go to Homepage
+      </button>
+      <button class="btn btn-secondary" (click)="goBack()">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+        </svg>
+        Go Back
+      </button>
+    </div>
+    
+    <div class="help-text">
+      <p *ngIf="isAuthenticated">If you believe you should have access, please contact your administrator.</p>
+      <p>Need help? <a href="/contact">Contact Support</a></p>
+    </div>
+  </div>
+</div>
