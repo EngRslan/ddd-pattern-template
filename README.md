@@ -482,7 +482,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 **Developed by Muhammad Raslan**
 
 - GitHub: [@EngRslan](https://github.com/EngRslan)
-- Email: [your-email@example.com]
+- Email: [eng.m.rslan@hotmail.com]
 
 ## 📄 License
 
