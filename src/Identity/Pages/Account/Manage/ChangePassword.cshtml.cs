@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Engrslan.Identity.Pages.Account.Manage;
+namespace Engrslan.Pages.Account.Manage;
 
 public class ChangePassword : PageModel
 {

@@ -1,9 +1,7 @@
-using System.Text.Json;
-using Engrslan.Application.Contracts.Services;
-using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.DependencyInjection;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Engrslan.Application.Services;
+namespace Engrslan.Services;
 
 public class MemoryCacheService : ICacheService, ISingletonService
 {

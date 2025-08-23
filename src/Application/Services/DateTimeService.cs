@@ -1,7 +1,6 @@
-using Engrslan.Domain.Services;
-using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.DependencyInjection;
 
-namespace Engrslan.Application.Services;
+namespace Engrslan.Services;
 
 public class DateTimeService : IDateTimeService, ISingletonService
 {

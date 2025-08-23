@@ -1,7 +1,7 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 
-namespace Engrslan.HttpApi.Features.Samples;
+namespace Engrslan.Features.Samples;
 
 /// <summary>
 /// Public health check endpoint (no authentication required)

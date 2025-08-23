@@ -1,13 +1,13 @@
 using System.Reflection;
-using Engrslan.Domain.Interfaces;
-using Engrslan.Domain.Shared.DependencyInjection;
-using Engrslan.EfCore.Interceptors;
-using Engrslan.EfCore.Repositories;
+using Engrslan.DependencyInjection;
+using Engrslan.Interceptors;
+using Engrslan.Interfaces;
+using Engrslan.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Engrslan.EfCore;
+namespace Engrslan;
 
 public static class EfCoreServiceExtensions
 {

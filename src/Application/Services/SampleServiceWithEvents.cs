@@ -1,9 +1,8 @@
-using Engrslan.Domain.Events;
-using Engrslan.Domain.Shared.DependencyInjection;
-using Engrslan.Domain.Shared.Events;
+using Engrslan.DependencyInjection;
+using Engrslan.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Engrslan.Application.Services;
+namespace Engrslan.Services;
 
 public interface ISampleServiceWithEvents : ITransientService
 {

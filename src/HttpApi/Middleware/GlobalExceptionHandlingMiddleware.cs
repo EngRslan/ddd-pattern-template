@@ -1,11 +1,11 @@
 using System.Net;
 using System.Text.Json;
-using Engrslan.Domain.Shared.Exceptions;
+using Engrslan.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Engrslan.HttpApi.Middleware;
+namespace Engrslan.Middleware;
 
 public class GlobalExceptionHandlingMiddleware
 {

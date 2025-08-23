@@ -1,10 +1,10 @@
 using System.Reflection;
-using Engrslan.Domain.Shared.DependencyInjection;
-using Engrslan.Domain.Shared.Events;
+using Engrslan.DependencyInjection;
+using Engrslan.Events;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Engrslan.Application;
+namespace Engrslan;
 
 public static class ApplicationServiceExtensions
 {

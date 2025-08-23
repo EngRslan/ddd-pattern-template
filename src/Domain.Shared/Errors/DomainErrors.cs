@@ -1,6 +1,6 @@
 using ErrorOr;
 
-namespace Engrslan.Domain.Shared.Errors;
+namespace Engrslan.Errors;
 
 public static class DomainErrors
 {

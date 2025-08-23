@@ -1,8 +1,8 @@
 using System.Text.RegularExpressions;
-using Engrslan.Domain.Shared.Errors;
+using Engrslan.Errors;
 using ErrorOr;
 
-namespace Engrslan.Domain.ValueObjects;
+namespace Engrslan.ValueObjects;
 
 public sealed class PhoneNumber : ValueObject
 {

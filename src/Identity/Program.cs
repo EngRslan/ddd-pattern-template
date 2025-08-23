@@ -1,9 +1,7 @@
-using Engrslan.Domain;
-using Engrslan.Domain.Identity;
-using Engrslan.EfCore;
-using Engrslan.Identity.IdentityHandlers;
-using Engrslan.Identity.Services;
-using Engrslan.Infrastructure;
+using Engrslan;
+using Engrslan.Identity;
+using Engrslan.IdentityHandlers;
+using Engrslan.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
@@ -68,7 +66,7 @@ void ConfigureRazorPages(IServiceCollection services, IWebHostEnvironment enviro
 
 void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
 {
-    services.AddDbContext<IdentityDataContext>(options =>
+    services.AddDbContext<ApplicationDataContext>(options =>
     {
         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         options.UseOpenIddict();
@@ -78,7 +76,7 @@ void ConfigureDatabase(IServiceCollection services, IConfiguration configuration
 void ConfigureIdentity(IServiceCollection services)
 {
     services.AddIdentity<User, Role>()
-        .AddEntityFrameworkStores<IdentityDataContext>()
+        .AddEntityFrameworkStores<ApplicationDataContext>()
         .AddDefaultTokenProviders();
 }
 
@@ -94,7 +92,7 @@ void ConfigureOpenIddict(IServiceCollection services)
         .AddCore(options =>
         {
             options.UseEntityFrameworkCore()
-                   .UseDbContext<IdentityDataContext>();
+                   .UseDbContext<ApplicationDataContext>();
         })
         .AddServer(options =>
         {

@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using OpenIddict.Abstractions;
 using OpenIddict.Server;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace Engrslan.Identity.IdentityHandlers;
+namespace Engrslan.IdentityHandlers;
 
 public class AuthorizeRequestHandler : IOpenIddictServerHandler<OpenIddictServerEvents.HandleAuthorizationRequestContext>
 {
@@ -45,7 +45,7 @@ public class AuthorizeRequestHandler : IOpenIddictServerHandler<OpenIddictServer
             if (context.Request.HasPromptValue(PromptValues.None))
             {
                 context.Reject(
-                    error: Errors.LoginRequired,
+                    error: OpenIddictConstants.Errors.LoginRequired,
                     description: "The user is not logged in.");
                 return;
             }
@@ -66,7 +66,7 @@ public class AuthorizeRequestHandler : IOpenIddictServerHandler<OpenIddictServer
             }
 
             context.Reject(
-                error: Errors.LoginRequired,
+                error: OpenIddictConstants.Errors.LoginRequired,
                 description: "The user is not logged in.");
             return;
         }
@@ -99,7 +99,7 @@ public class AuthorizeRequestHandler : IOpenIddictServerHandler<OpenIddictServer
             // immediately return an error if no authorization can be found in the database.
             case ConsentTypes.External when !authorizations.Any():
                 context.Reject(
-                    error: Errors.ConsentRequired,
+                    error: OpenIddictConstants.Errors.ConsentRequired,
                     description: "The logged in user is not allowed to access this client application.");
                 return;
 
@@ -158,7 +158,7 @@ public class AuthorizeRequestHandler : IOpenIddictServerHandler<OpenIddictServer
             case ConsentTypes.Explicit when context.Request.HasPromptValue(PromptValues.None):
             case ConsentTypes.Systematic when context.Request.HasPromptValue(PromptValues.None):
                 context.Reject(
-                    error: Errors.ConsentRequired,
+                    error: OpenIddictConstants.Errors.ConsentRequired,
                     description: "Interactive user consent is required.");
                 return;
 
@@ -166,7 +166,7 @@ public class AuthorizeRequestHandler : IOpenIddictServerHandler<OpenIddictServer
             default:
                 // For now, reject and implement consent page later
                 context.Reject(
-                    error: Errors.ConsentRequired,
+                    error: OpenIddictConstants.Errors.ConsentRequired,
                     description: "User consent is required but consent page is not implemented yet.");
                 return;
         }

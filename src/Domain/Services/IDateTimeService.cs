@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.Services;
+namespace Engrslan.Services;
 
 public interface IDateTimeService
 {

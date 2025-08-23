@@ -1,8 +1,8 @@
-﻿using Engrslan.Domain.Shared.Events;
+﻿using Engrslan.Events;
 
-namespace Engrslan.Domain.Interfaces;
+namespace Engrslan.Interfaces;
 
-public interface IAggregateRootEntity : IEntity
+public interface IAggregateRoot : IEntity
 {
     IReadOnlyCollection<IDomainEvent> DomainEvents { get; }
     void AddDomainEvent(IDomainEvent domainEvent);
@@ -10,12 +10,12 @@ public interface IAggregateRootEntity : IEntity
     IEnumerable<IDomainEvent> GetAndClearDomainEvents();
 }
 
-public interface IAggregateRootEntity<out T> : IAggregateRootEntity;
-public interface ICreationAggregateRootEntity<out T> : IAggregateRootEntity<T>, ICreationEntity<T>;
-public interface ICreationAggregateRootEntity : IAggregateRootEntity<int>, ICreationEntity<int>;
-public interface IAuditableAggregateRootEntity<out T> : IAggregateRootEntity<T>, IAuditableEntity<T>;
-public interface IAuditableAggregateRootEntity : IAggregateRootEntity<int>, IAuditableEntity<int>;
-public interface IFullAuditableAggregateRootEntity<out T> : IAggregateRootEntity<T>, IFullAuditableEntity<T>;
-public interface IFullAuditableAggregateRootEntity : IAggregateRootEntity<int>, IFullAuditableEntity<int>;
+public interface IAggregateRoot<out T> : IAggregateRoot;
+public interface ICreationAuditedAggregateRoot<out T> : IAggregateRoot<T>, ICreationAuditedEntity<T>;
+public interface ICreationAuditedAggregateRoot : IAggregateRoot<int>, ICreationAuditedEntity<int>;
+public interface IAuditedAggregateRoot<out T> : IAggregateRoot<T>, IAuditedEntity<T>;
+public interface IAuditedAggregateRoot : IAggregateRoot<int>, IAuditedEntity<int>;
+public interface IFullAuditedAggregateRoot<out T> : IAggregateRoot<T>, IFullAuditedEntity<T>;
+public interface IFullAuditedAggregateRoot : IAggregateRoot<int>, IFullAuditedEntity<int>;
 
 

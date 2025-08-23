@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Engrslan.Domain.Interfaces;
+namespace Engrslan.Interfaces;
 
 public interface IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
 {

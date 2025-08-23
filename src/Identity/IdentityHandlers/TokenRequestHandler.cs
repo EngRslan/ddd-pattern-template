@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
 using System.Security.Claims;
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +10,7 @@ using OpenIddict.Server;
 using OpenIddict.Server.AspNetCore;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace Engrslan.Identity.IdentityHandlers;
+namespace Engrslan.IdentityHandlers;
 
 public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEvents.HandleTokenRequestContext>
 {
@@ -58,7 +58,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         else
         {
             context.Reject(
-                error: Errors.UnsupportedGrantType,
+                error: OpenIddictConstants.Errors.UnsupportedGrantType,
                 description: "The specified grant type is not supported.");
         }
     }
@@ -75,7 +75,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (principal == null)
         {
             context.Reject(
-                error: Errors.InvalidGrant,
+                error: OpenIddictConstants.Errors.InvalidGrant,
                 description: "The authorization code is no longer valid.");
             return;
         }
@@ -85,7 +85,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (user == null)
         {
             context.Reject(
-                error: Errors.InvalidGrant,
+                error: OpenIddictConstants.Errors.InvalidGrant,
                 description: "The authorization code is no longer valid.");
             return;
         }
@@ -94,7 +94,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (!await _signInManager.CanSignInAsync(user))
         {
             context.Reject(
-                error: Errors.InvalidGrant,
+                error: OpenIddictConstants.Errors.InvalidGrant,
                 description: "The user is no longer allowed to sign in.");
             return;
         }
@@ -133,7 +133,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (principal == null)
         {
             context.Reject(
-                error: Errors.InvalidGrant,
+                error: OpenIddictConstants.Errors.InvalidGrant,
                 description: "The refresh token is no longer valid.");
             return;
         }
@@ -143,7 +143,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (user == null)
         {
             context.Reject(
-                error: Errors.InvalidGrant,
+                error: OpenIddictConstants.Errors.InvalidGrant,
                 description: "The refresh token is no longer valid.");
             return;
         }
@@ -152,7 +152,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (!await _signInManager.CanSignInAsync(user))
         {
             context.Reject(
-                error: Errors.InvalidGrant,
+                error: OpenIddictConstants.Errors.InvalidGrant,
                 description: "The user is no longer allowed to sign in.");
             return;
         }
@@ -187,7 +187,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (user == null)
         {
             context.Reject(
-                error: Errors.InvalidGrant,
+                error: OpenIddictConstants.Errors.InvalidGrant,
                 description: "The username/password couple is invalid.");
             return;
         }
@@ -199,19 +199,19 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
             if (result.IsLockedOut)
             {
                 context.Reject(
-                    error: Errors.InvalidGrant,
+                    error: OpenIddictConstants.Errors.InvalidGrant,
                     description: "The account is locked out.");
             }
             else if (result.IsNotAllowed)
             {
                 context.Reject(
-                    error: Errors.InvalidGrant,
+                    error: OpenIddictConstants.Errors.InvalidGrant,
                     description: "The user is not allowed to sign in.");
             }
             else
             {
                 context.Reject(
-                    error: Errors.InvalidGrant,
+                    error: OpenIddictConstants.Errors.InvalidGrant,
                     description: "The username/password couple is invalid.");
             }
             return;
@@ -277,7 +277,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (string.IsNullOrEmpty(request.ClientId))
         {
             context.Reject(
-                error: Errors.InvalidClient,
+                error: OpenIddictConstants.Errors.InvalidClient,
                 description: "The client identifier is missing.");
             return;
         }
@@ -286,7 +286,7 @@ public class TokenRequestHandler : IOpenIddictServerHandler<OpenIddictServerEven
         if (application == null)
         {
             context.Reject(
-                error: Errors.InvalidClient,
+                error: OpenIddictConstants.Errors.InvalidClient,
                 description: "The client application was not found.");
             return;
         }

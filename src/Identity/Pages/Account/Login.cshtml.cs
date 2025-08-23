@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Engrslan.Identity.Pages.Account;
+namespace Engrslan.Pages.Account;
 
 public class Login : PageModel
 {

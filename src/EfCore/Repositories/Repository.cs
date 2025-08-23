@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
-using Engrslan.Domain.Interfaces;
+using Engrslan.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Engrslan.EfCore.Repositories;
+namespace Engrslan.Repositories;
 
 public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
 {

@@ -4,7 +4,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace Engrslan.HttpApi.Features.Samples.Home;
+namespace Engrslan.Features.Samples.Home;
 
 
 public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>

@@ -1,4 +1,4 @@
-namespace Engrslan.Application.Contracts.Dtos;
+namespace Engrslan.Dtos;
 
 public class CreateSampleDto
 {
@@ -13,7 +13,7 @@ public class UpdateSampleDto : CreateSampleDto
     public int Id { get; set; }
 }
 
-public class SampleDto : AuditableDto
+public class SampleDto : EntityDto
 {
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }

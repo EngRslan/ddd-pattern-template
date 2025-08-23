@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.Interfaces;
+namespace Engrslan.Interfaces;
 
 public interface ICurrentUser
 {

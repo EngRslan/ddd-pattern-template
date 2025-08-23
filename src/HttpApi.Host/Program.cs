@@ -1,9 +1,6 @@
-using Engrslan.Application;
-using Engrslan.Domain;
-using Engrslan.EfCore;
-using Engrslan.HttpApi;
+using Engrslan;
+using Engrslan.HealthChecks;
 //#if (EnableHealthChecks)
-using Engrslan.HttpApi.Host.HealthChecks;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 //#endif

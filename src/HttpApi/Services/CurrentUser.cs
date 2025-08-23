@@ -1,9 +1,9 @@
 using System.Security.Claims;
-using Engrslan.Domain.Interfaces;
-using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.DependencyInjection;
+using Engrslan.Interfaces;
 using Microsoft.AspNetCore.Http;
 
-namespace Engrslan.HttpApi.Services;
+namespace Engrslan.Services;
 
 public class CurrentUser : ICurrentUser, IScopedService
 {

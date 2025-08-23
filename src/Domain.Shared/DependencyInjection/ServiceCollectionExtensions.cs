@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Engrslan.Domain.Shared.DependencyInjection;
+namespace Engrslan.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {

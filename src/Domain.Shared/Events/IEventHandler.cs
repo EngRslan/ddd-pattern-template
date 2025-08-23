@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.Shared.Events;
+namespace Engrslan.Events;
 
 public interface IEventHandler<in TEvent> where TEvent : IDomainEvent
 {

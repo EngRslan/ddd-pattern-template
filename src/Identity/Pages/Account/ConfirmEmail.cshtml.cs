@@ -1,12 +1,12 @@
 using System.Text;
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Engrslan.Identity.Pages.Account;
+namespace Engrslan.Pages.Account;
 
 [AllowAnonymous]
 public class ConfirmEmail : PageModel

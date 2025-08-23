@@ -1,8 +1,7 @@
-using Engrslan.Domain.Services;
-using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Engrslan.Infrastructure.Services;
+namespace Engrslan.Services;
 
 /// <summary>
 /// Fake SMS sender for development - writes to console/logs instead of sending real SMS

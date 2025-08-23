@@ -1,13 +1,14 @@
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using OpenIddict.Abstractions;
 using OpenIddict.Server;
 using OpenIddict.Server.AspNetCore;
+
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace Engrslan.Identity.IdentityHandlers;
+namespace Engrslan.IdentityHandlers;
 
 public class UserInfoRequestHandler : IOpenIddictServerHandler<OpenIddictServerEvents.HandleUserInfoRequestContext>
 {
@@ -29,7 +30,7 @@ public class UserInfoRequestHandler : IOpenIddictServerHandler<OpenIddictServerE
         if (!result.Succeeded || result.Principal == null)
         {
             context.Reject(
-                error: Errors.InvalidToken,
+                error: OpenIddictConstants.Errors.InvalidToken,
                 description: "The access token is not valid.");
             return;
         }
@@ -39,7 +40,7 @@ public class UserInfoRequestHandler : IOpenIddictServerHandler<OpenIddictServerE
         if (string.IsNullOrEmpty(subject))
         {
             context.Reject(
-                error: Errors.InvalidToken,
+                error: OpenIddictConstants.Errors.InvalidToken,
                 description: "The access token is missing the subject claim.");
             return;
         }
@@ -49,7 +50,7 @@ public class UserInfoRequestHandler : IOpenIddictServerHandler<OpenIddictServerE
         if (user == null)
         {
             context.Reject(
-                error: Errors.InvalidToken,
+                error: OpenIddictConstants.Errors.InvalidToken,
                 description: "The user associated with the access token no longer exists.");
             return;
         }

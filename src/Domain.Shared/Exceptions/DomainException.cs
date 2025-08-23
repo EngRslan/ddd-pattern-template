@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.Shared.Exceptions;
+namespace Engrslan.Exceptions;
 
 public class DomainException : Exception
 {

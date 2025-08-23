@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace Engrslan.HttpApi.Host.HealthChecks;
+namespace Engrslan.HealthChecks;
 
 /// <summary>
 /// Custom health check for application-specific services and dependencies

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Engrslan.Domain.Shared.Events;
+namespace Engrslan.Events;
 
 public class EventDispatcher : IEventDispatcher
 {

@@ -1,10 +1,9 @@
 using System.Net;
 using System.Net.Mail;
-using Engrslan.Domain.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Engrslan.Infrastructure.Services;
+namespace Engrslan.Services;
 
 /// <summary>
 /// Default implementation of IEmailSender using SMTP

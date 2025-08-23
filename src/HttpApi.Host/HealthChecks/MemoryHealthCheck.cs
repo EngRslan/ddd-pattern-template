@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 
-namespace Engrslan.HttpApi.Host.HealthChecks;
+namespace Engrslan.HealthChecks;
 
 /// <summary>
 /// Health check for monitoring memory usage

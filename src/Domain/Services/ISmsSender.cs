@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.Services;
+namespace Engrslan.Services;
 
 /// <summary>
 /// Interface for sending SMS messages across the application

@@ -2,7 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Engrslan.Domain.Shared.Events;
+namespace Engrslan.Events;
 
 public static class EventExtensions
 {

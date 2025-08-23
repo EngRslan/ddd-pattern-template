@@ -1,6 +1,6 @@
-using Engrslan.Domain.Interfaces;
+using Engrslan.Interfaces;
 
-namespace Engrslan.Domain.Entities;
+namespace Engrslan.Entities;
 
 public abstract class Entity : IEntity
 {
@@ -12,27 +12,27 @@ public abstract class Entity<T> : Entity
     public new T Id { get; set; } = default!;
 }
 
-public abstract class CreationEntity<T> : Entity<T>, ICreationEntity<T>
+public abstract class CreationAuditedEntity<T> : Entity<T>, ICreationAuditedEntity<T>
 {
     public Guid? CreatedBy { get; set; }
     public DateTime CreatedAt { get; set; }
 }
 
-public abstract class CreationEntity : CreationEntity<int>;
+public abstract class CreationAuditedEntity : CreationAuditedEntity<int>;
 
-public abstract class AuditableEntity<T> : CreationEntity<T>, IAuditableEntity<T>
+public abstract class AuditedEntity<T> : CreationAuditedEntity<T>, IAuditedEntity<T>
 {
-    public Guid? UpdatedBy { get; set; }
-    public DateTime? UpdatedAt { get; set; }
+    public Guid? ModifiedBy { get; set; }
+    public DateTime? ModifiedAt { get; set; }
 }
 
-public abstract class AuditableEntity : AuditableEntity<int>;
+public abstract class AuditedEntity : AuditedEntity<int>;
 
-public abstract class FullAuditableEntity<T> : AuditableEntity<T>, IFullAuditableEntity<T>
+public abstract class FullAuditedEntity<T> : AuditedEntity<T>, IFullAuditedEntity<T>
 {
     public Guid? DeletedBy { get; set; }
     public DateTime? DeletedAt { get; set; }
     public bool IsDeleted { get; set; }
 }
 
-public abstract class FullAuditableEntity : FullAuditableEntity<int>;
+public abstract class FullAuditedEntity : FullAuditedEntity<int>;

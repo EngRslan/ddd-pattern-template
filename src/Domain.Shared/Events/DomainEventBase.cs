@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.Shared.Events;
+namespace Engrslan.Events;
 
 public abstract class DomainEventBase : IDomainEvent
 {

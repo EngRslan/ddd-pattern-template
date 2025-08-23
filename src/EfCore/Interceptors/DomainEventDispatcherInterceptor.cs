@@ -1,9 +1,9 @@
-using Engrslan.Domain.Interfaces;
-using Engrslan.Domain.Shared.Events;
+using Engrslan.Events;
+using Engrslan.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Engrslan.EfCore.Interceptors;
+namespace Engrslan.Interceptors;
 
 public class DomainEventDispatcherInterceptor : SaveChangesInterceptor
 {
@@ -40,7 +40,7 @@ public class DomainEventDispatcherInterceptor : SaveChangesInterceptor
     private async Task DispatchDomainEventsAsync(DbContext context, CancellationToken cancellationToken)
     {
         var aggregateRoots = context.ChangeTracker
-            .Entries<IAggregateRootEntity>()
+            .Entries<IAggregateRoot>()
             .Where(e => e.Entity.DomainEvents.Count != 0)
             .Select(e => e.Entity)
             .ToList();

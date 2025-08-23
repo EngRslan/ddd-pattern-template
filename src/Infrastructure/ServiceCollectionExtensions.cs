@@ -1,8 +1,8 @@
 using System.Reflection;
-using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Engrslan.Infrastructure;
+namespace Engrslan;
 
 /// <summary>
 /// Extension methods for registering Infrastructure services

@@ -1,8 +1,7 @@
-using Engrslan.Domain.Events;
-using Engrslan.Domain.Shared.Events;
+using Engrslan.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Engrslan.Application.EventHandlers;
+namespace Engrslan.EventHandlers;
 
 public class EntityCreatedEventHandler : IEventHandler<EntityCreatedEvent>
 {

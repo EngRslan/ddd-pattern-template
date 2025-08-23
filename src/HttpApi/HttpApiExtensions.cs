@@ -1,6 +1,6 @@
 using System.Reflection;
-using Engrslan.Domain.Shared.DependencyInjection;
-using Engrslan.HttpApi.Middleware;
+using Engrslan.DependencyInjection;
+using Engrslan.Middleware;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -11,14 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.AspNetCore;
-
-//#if UseIdentity
 using OpenIddict.Validation.AspNetCore;
+using Scalar.AspNetCore;
+//#if UseIdentity
 //#endif
 
-using Scalar.AspNetCore;
-
-namespace Engrslan.HttpApi;
+namespace Engrslan;
 
 public static class HttpApiExtensions
 {

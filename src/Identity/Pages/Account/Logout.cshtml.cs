@@ -1,4 +1,4 @@
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 
-namespace Engrslan.Identity.Pages.Account;
+namespace Engrslan.Pages.Account;
 
 [AllowAnonymous]
 public class Logout : PageModel

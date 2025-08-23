@@ -1,8 +1,8 @@
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore.Identity;
 using OpenIddict.Abstractions;
 
-namespace Engrslan.Identity.Services;
+namespace Engrslan.Services;
 
 public class OpenIddictDataSeeder : IHostedService
 {
@@ -57,7 +57,7 @@ public class OpenIddictDataSeeder : IHostedService
             // Angular SPA Client Application
             new()
             {
-                ClientId = "certmanager-angular-client",
+                ClientId = "engrslan-angular-client",
                 DisplayName = "Engrslan Angular Client",
                 ClientType = OpenIddictConstants.ClientTypes.Public,
                 ApplicationType = OpenIddictConstants.ApplicationTypes.Web,
@@ -89,7 +89,7 @@ public class OpenIddictDataSeeder : IHostedService
                     OpenIddictConstants.Permissions.Scopes.Email,
                     OpenIddictConstants.Permissions.Scopes.Profile,
                     OpenIddictConstants.Permissions.Scopes.Roles,
-                    OpenIddictConstants.Permissions.Prefixes.Scope + "certmanager-api"
+                    OpenIddictConstants.Permissions.Prefixes.Scope + "engrslan-api"
                 },
                 Requirements =
                 {
@@ -100,8 +100,8 @@ public class OpenIddictDataSeeder : IHostedService
             // Backend API Application for Introspection
             new OpenIddictApplicationDescriptor
             {
-                ClientId = "certmanager-api",
-                ClientSecret = "certmanager-api-secret-2024",
+                ClientId = "engrslan-api",
+                ClientSecret = "engrslan-api-secret-2024",
                 DisplayName = "Engrslan API Resource Server",
                 ClientType = OpenIddictConstants.ClientTypes.Confidential,
                 Permissions =
@@ -138,7 +138,7 @@ public class OpenIddictDataSeeder : IHostedService
                     OpenIddictConstants.Permissions.Scopes.Email,
                     OpenIddictConstants.Permissions.Scopes.Profile,
                     OpenIddictConstants.Permissions.Scopes.Roles,
-                    OpenIddictConstants.Permissions.Prefixes.Scope + "certmanager-api"
+                    OpenIddictConstants.Permissions.Prefixes.Scope + "engrslan-api"
                 },
                 Requirements =
                 {
@@ -179,10 +179,10 @@ public class OpenIddictDataSeeder : IHostedService
             // Engrslan API Scope
             new OpenIddictScopeDescriptor
             {
-                Name = "certmanager-api",
+                Name = "engrslan-api",
                 DisplayName = "Engrslan API Access",
                 Description = "Allows access to the Engrslan API",
-                Resources = { "certmanager-api" }
+                Resources = { "engrslan-api" }
             }
         };
 

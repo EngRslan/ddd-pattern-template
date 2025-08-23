@@ -1,6 +1,6 @@
-using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.DependencyInjection;
 
-namespace Engrslan.Application.Services;
+namespace Engrslan.Services;
 
 public interface IExampleService
 {

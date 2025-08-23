@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.Services;
+namespace Engrslan.Services;
 
 /// <summary>
 /// Interface for sending emails across the application

@@ -1,6 +1,4 @@
-using Engrslan.Domain.Shared.Events;
-
-namespace Engrslan.Domain.Events;
+namespace Engrslan.Events;
 
 public class EntityCreatedEvent : DomainEventBase
 {

@@ -1,4 +1,4 @@
-using Engrslan.Domain.Identity;
+using Engrslan.Identity;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +6,7 @@ using OpenIddict.Abstractions;
 using OpenIddict.Server;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace Engrslan.Identity.IdentityHandlers;
+namespace Engrslan.IdentityHandlers;
 
 public class LogoutRequestHandler : IOpenIddictServerHandler<OpenIddictServerEvents.HandleEndSessionRequestContext>
 {
@@ -45,7 +45,7 @@ public class LogoutRequestHandler : IOpenIddictServerHandler<OpenIddictServerEve
             if (context.Request.HasPromptValue(PromptValues.None))
             {
                 context.Reject(
-                    error: Errors.LoginRequired,
+                    error: OpenIddictConstants.Errors.LoginRequired,
                     description: "The user is not logged in.");
                 return;
             }
@@ -67,7 +67,7 @@ public class LogoutRequestHandler : IOpenIddictServerHandler<OpenIddictServerEve
         if (user == null)
         {
             context.Reject(
-                error: Errors.ServerError,
+                error: OpenIddictConstants.Errors.ServerError,
                 description: "The user details cannot be retrieved.");
             return;
         }
@@ -140,7 +140,7 @@ public class LogoutRequestHandler : IOpenIddictServerHandler<OpenIddictServerEve
             if (string.IsNullOrEmpty(context.Request.ClientId))
             {
                 context.Reject(
-                    error: Errors.InvalidRequest,
+                    error: OpenIddictConstants.Errors.InvalidRequest,
                     description: "The client_id parameter must be specified when using post_logout_redirect_uri.");
                 return;
             }
@@ -149,7 +149,7 @@ public class LogoutRequestHandler : IOpenIddictServerHandler<OpenIddictServerEve
             if (application == null)
             {
                 context.Reject(
-                    error: Errors.InvalidClient,
+                    error: OpenIddictConstants.Errors.InvalidClient,
                     description: "The specified client application was not found.");
                 return;
             }
@@ -160,7 +160,7 @@ public class LogoutRequestHandler : IOpenIddictServerHandler<OpenIddictServerEve
             if (!postLogoutRedirectUris.Contains(context.Request.PostLogoutRedirectUri))
             {
                 context.Reject(
-                    error: Errors.InvalidRequest,
+                    error: OpenIddictConstants.Errors.InvalidRequest,
                     description: "The specified post_logout_redirect_uri is not valid for this client application.");
                 return;
             }

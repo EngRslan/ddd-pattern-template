@@ -1,9 +1,9 @@
-﻿using Engrslan.Domain.Interfaces;
-using Engrslan.Domain.Shared.Events;
+﻿using Engrslan.Events;
+using Engrslan.Interfaces;
 
-namespace Engrslan.Domain.Entities;
+namespace Engrslan.Entities;
 
-public abstract class AggregateRootEntity<T> : Entity<T>, IAggregateRootEntity<T>
+public abstract class AggregateRoot<T> : Entity<T>, IAggregateRoot<T>
 {
     private readonly List<IDomainEvent> _domainEvents = [];
 
@@ -26,30 +26,30 @@ public abstract class AggregateRootEntity<T> : Entity<T>, IAggregateRootEntity<T
         return events;
     }
 }
-public abstract class AggregateRootEntity : AggregateRootEntity<int>, IAggregateRootEntity;
+public abstract class AggregateRoot : AggregateRoot<int>;
 
-public abstract class CreationAggregateRootEntity<T> : AggregateRootEntity<T>, ICreationAggregateRootEntity<T>
+public abstract class CreationAuditedAggregateRoot<T> : AggregateRoot<T>, ICreationAuditedAggregateRoot<T>
 {
     public Guid? CreatedBy { get; set; }
     public DateTime CreatedAt { get; set; }
 }
 
-public abstract class CreationAggregateRootEntity : CreationAggregateRootEntity<int>, ICreationAggregateRootEntity;
+public abstract class CreationAuditedAggregateRoot : CreationAuditedAggregateRoot<int>, ICreationAuditedAggregateRoot;
 
-public abstract class AuditableAggregateRootEntity<T> : CreationAggregateRootEntity<T>, IAuditableAggregateRootEntity<T>
+public abstract class AuditedAggregateRoot<T> : CreationAuditedAggregateRoot<T>, IAuditedAggregateRoot<T>
 {
-    public Guid? UpdatedBy { get; set; }
-    public DateTime? UpdatedAt { get; set; }
+    public Guid? ModifiedBy { get; set; }
+    public DateTime? ModifiedAt { get; set; }
 }
 
-public abstract class AuditableAggregateRootEntity : AuditableAggregateRootEntity<int>, IAuditableAggregateRootEntity;
+public abstract class AuditedAggregateRoot : AuditedAggregateRoot<int>, IAuditedAggregateRoot;
 
-public abstract class FullAuditableAggregateRootEntity<T> : AuditableAggregateRootEntity<T>, IFullAuditableAggregateRootEntity<T>
+public abstract class FullAuditedAggregateRoot<T> : AuditedAggregateRoot<T>, IFullAuditedAggregateRoot<T>
 {
     public Guid? DeletedBy { get; set; }
     public DateTime? DeletedAt { get; set; }
     public bool IsDeleted { get; set; }
 }
 
-public abstract class FullAuditableAggregateRootEntity : FullAuditableAggregateRootEntity<int>,
-    IFullAuditableAggregateRootEntity;
+public abstract class FullAuditedAggregateRoot : FullAuditedAggregateRoot<int>,
+    IFullAuditedAggregateRoot;

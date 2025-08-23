@@ -1,7 +1,7 @@
-using Engrslan.Domain.Shared.Errors;
+using Engrslan.Errors;
 using ErrorOr;
 
-namespace Engrslan.Domain.ValueObjects;
+namespace Engrslan.ValueObjects;
 
 public sealed class Money : ValueObject
 {

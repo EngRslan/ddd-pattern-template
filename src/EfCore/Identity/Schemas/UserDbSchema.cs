@@ -1,8 +1,7 @@
-﻿using Engrslan.Domain.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Engrslan.EfCore.Schemas;
+namespace Engrslan.Identity.Schemas;
 
 public class UserDbSchema : IEntityTypeConfiguration<User>
 {

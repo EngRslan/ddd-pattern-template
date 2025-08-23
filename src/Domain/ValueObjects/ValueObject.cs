@@ -1,4 +1,4 @@
-namespace Engrslan.Domain.ValueObjects;
+namespace Engrslan.ValueObjects;
 
 public abstract class ValueObject : IEquatable<ValueObject>
 {

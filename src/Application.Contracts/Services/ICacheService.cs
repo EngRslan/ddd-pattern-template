@@ -1,4 +1,4 @@
-namespace Engrslan.Application.Contracts.Services;
+namespace Engrslan.Services;
 
 public interface ICacheService
 {

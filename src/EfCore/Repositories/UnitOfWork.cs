@@ -1,8 +1,8 @@
-using Engrslan.Domain.Interfaces;
-using Engrslan.Domain.Shared.DependencyInjection;
+using Engrslan.DependencyInjection;
+using Engrslan.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Engrslan.EfCore.Repositories;
+namespace Engrslan.Repositories;
 
 public class UnitOfWork : IUnitOfWork, IScopedService
 {
