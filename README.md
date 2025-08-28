@@ -1,3 +1,4 @@
+## Important Note: This repository is under active development. Expect frequent changes, and use it at your own discretion. 
 # 🏗️ DDD Pattern Template
 
 A comprehensive Domain-Driven Design (DDD) pattern template for building scalable, maintainable enterprise applications with .NET 9 and Angular 19.

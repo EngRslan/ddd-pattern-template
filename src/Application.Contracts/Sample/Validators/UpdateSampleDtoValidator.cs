@@ -1,7 +1,8 @@
 using Engrslan.Dtos;
+using Engrslan.Sample.Dtos;
 using FluentValidation;
 
-namespace Engrslan.Validators;
+namespace Engrslan.SampleManagment.Validators;
 
 public class UpdateSampleDtoValidator : AbstractValidator<UpdateSampleDto>
 {

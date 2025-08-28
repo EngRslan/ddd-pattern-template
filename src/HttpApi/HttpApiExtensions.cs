@@ -32,7 +32,6 @@ public static class HttpApiExtensions
         ConfigureSwaggerDocuments(services, configuration);
         ConfigureCors(services, configuration);
         RegisterServices(services);
-        
         return services;
     }
 
@@ -192,11 +191,14 @@ public static class HttpApiExtensions
     {
         // Auto-register services with marker interfaces
         services.AddServicesFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        
     }
 
     private static void ConfigureMiddlewarePipeline(IApplicationBuilder app)
     {
-        app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+        app.UseMiddleware<GlobalExceptionHandler>();
+        app.UseExceptionHandler();
         app.UseCors(DefaultCorsPolicy);
         app.UseRouting();
         

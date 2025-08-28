@@ -118,10 +118,8 @@
           "exclude": [
             "**/Sample*.cs",
             "**/Example*.cs",
-            "**/Dtos/SampleDto.cs",
-            "**/Services/ExampleService.cs",
-            "**/Validators/CreateSampleDtoValidator.cs",
-            "**/Validators/UpdateSampleDtoValidator.cs"
+            "**/Sample/**/*"
+            
           ]
         },
         {

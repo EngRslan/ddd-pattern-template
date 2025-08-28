@@ -2,7 +2,7 @@ using System.Security.Claims;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 
-namespace Engrslan.Features.Samples.Secure;
+namespace Engrslan.Features.Sample.Secure;
 
 /// <summary>
 /// Sample protected endpoint demonstrating OpenIddict authentication

@@ -1,4 +1,6 @@
-namespace Engrslan.Dtos;
+using Engrslan.Dtos;
+
+namespace Engrslan.Sample.Dtos;
 
 public class CreateSampleDto
 {

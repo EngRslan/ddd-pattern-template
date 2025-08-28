@@ -2,7 +2,7 @@ using Engrslan.DependencyInjection;
 using Engrslan.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Engrslan.Services;
+namespace Engrslan.Sample.Services;
 
 public interface ISampleServiceWithEvents : ITransientService
 {

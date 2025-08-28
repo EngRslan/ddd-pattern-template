@@ -1,4 +1,4 @@
-﻿namespace Engrslan.Features.Samples.Home;
+﻿namespace Engrslan.Features.Sample.Home;
 
 public class HomeResponse
 {

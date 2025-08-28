@@ -1,33 +1,20 @@
 using System.Net;
 using System.Text.Json;
 using Engrslan.Exceptions;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Engrslan.Middleware;
 
-public class GlobalExceptionHandlingMiddleware
+public class GlobalExceptionHandler : IExceptionHandler
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<GlobalExceptionHandlingMiddleware> _logger;
+    private readonly ILogger<GlobalExceptionHandler> _logger;
 
-    public GlobalExceptionHandlingMiddleware(RequestDelegate next, ILogger<GlobalExceptionHandlingMiddleware> logger)
+    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
     {
-        _next = next;
         _logger = logger;
-    }
-
-    public async Task InvokeAsync(HttpContext context)
-    {
-        try
-        {
-            await _next(context);
-        }
-        catch (Exception ex)
-        {
-            await HandleExceptionAsync(context, ex);
-        }
     }
 
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
@@ -112,5 +99,12 @@ public class GlobalExceptionHandlingMiddleware
         problemDetails.Extensions["timestamp"] = DateTime.UtcNow;
 
         return problemDetails;
+    }
+
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+    {
+        await HandleExceptionAsync(httpContext, exception);
+        
+        return true;
     }
 }

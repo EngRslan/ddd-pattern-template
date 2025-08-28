@@ -1,7 +1,7 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 
-namespace Engrslan.Features.Samples.Secure;
+namespace Engrslan.Features.Sample.Secure;
 
 /// <summary>
 /// Admin-only endpoint demonstrating role-based authorization
