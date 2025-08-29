@@ -15,6 +15,7 @@ public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
     {
         Get("/home");
         Options(x=>x.WithTags("Samples"));
+        AllowAnonymous();
         Summary(s =>
         {
             s.Summary = "Home";

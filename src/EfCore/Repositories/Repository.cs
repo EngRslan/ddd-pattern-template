@@ -17,17 +17,14 @@ public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntit
 
     public virtual async Task<TEntity?> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
     {
-        return await DbSet.FindAsync(new object[] { id! }, cancellationToken);
+        return await DbSet.FindAsync([id!], cancellationToken);
     }
 
     public virtual async Task<TEntity?> GetByIdAsync(TKey id, params Expression<Func<TEntity, object>>[] includes)
     {
         var query = DbSet.AsQueryable();
-        
-        foreach (var include in includes)
-        {
-            query = query.Include(include);
-        }
+
+        query = includes.Aggregate(query, (current, include) => current.Include(include));
 
         return await query.FirstOrDefaultAsync(e => e.Id!.Equals(id), CancellationToken.None);
     }

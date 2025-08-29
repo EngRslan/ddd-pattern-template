@@ -1,5 +1,6 @@
 using System.Reflection;
 using Engrslan.Identity;
+using Engrslan.Sample.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 //#if (UseIdentity)
@@ -14,6 +15,9 @@ public class ApplicationDataContext
     : IdentityDbContext<User,Role,Guid>
 #endif
 {
+    //#if (IncludeSampleCode)
+    public DbSet<Product> Products { get; set; } = null!;
+    //#endif
     public ApplicationDataContext(DbContextOptions<ApplicationDataContext> options) : base(options)
     {
         

@@ -88,6 +88,7 @@ void ConfigureServices(WebApplicationBuilder webApplicationBuilder)
     webApplicationBuilder.Services.AddApplication();
     webApplicationBuilder.Services.AddHttpApi(webApplicationBuilder.Configuration);
     
+    
     //#if (EnableHealthChecks)
     // Configure Health Check Options
     webApplicationBuilder.Services.Configure<MemoryHealthCheckOptions>(options =>
@@ -136,11 +137,12 @@ void ConfigureSpaStaticFiles(WebApplicationBuilder webApplicationBuilder)
 //#endif
 void ConfigureMiddleware(WebApplication application)
 {
+    application.UseExceptionHandler(_ => { });
     // Exception handling
-    if (application.Environment.IsDevelopment())
-    {
-        application.UseDeveloperExceptionPage();
-    }
+    // if (application.Environment.IsDevelopment())
+    // {
+    //     application.UseDeveloperExceptionPage();
+    // }
     
     // Request logging
     ConfigureSerilogRequestLogging(application);

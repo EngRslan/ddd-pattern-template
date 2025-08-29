@@ -192,13 +192,10 @@ public static class HttpApiExtensions
         // Auto-register services with marker interfaces
         services.AddServicesFromAssembly(Assembly.GetExecutingAssembly());
         services.AddExceptionHandler<GlobalExceptionHandler>();
-        
     }
 
     private static void ConfigureMiddlewarePipeline(IApplicationBuilder app)
     {
-        app.UseMiddleware<GlobalExceptionHandler>();
-        app.UseExceptionHandler();
         app.UseCors(DefaultCorsPolicy);
         app.UseRouting();
         
