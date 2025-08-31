@@ -1,5 +1,7 @@
 using System.Reflection;
 using Engrslan.DependencyInjection;
+using Engrslan.Services;
+using Engrslan.StorageProvider;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Engrslan;
@@ -22,7 +24,7 @@ public static class ServiceCollectionExtensions
         
         // Add other infrastructure services here as needed
         // Examples:
-        // services.AddScoped<IFileStorageService, LocalFileStorageService>();
+        services.AddScoped<IFileStorageService, LocalFileStorageService>();
         // services.AddScoped<ICacheService, MemoryCacheService>();
         // services.AddScoped<IQueueService, InMemoryQueueService>();
         

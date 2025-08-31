@@ -84,6 +84,7 @@ void ConfigureServices(WebApplicationBuilder webApplicationBuilder)
 {
     // Add core services
     webApplicationBuilder.Services.AddDomain();
+    webApplicationBuilder.Services.AddInfrastructureServices();
     webApplicationBuilder.Services.AddEfCore(webApplicationBuilder.Configuration);
     webApplicationBuilder.Services.AddApplication();
     webApplicationBuilder.Services.AddHttpApi(webApplicationBuilder.Configuration);

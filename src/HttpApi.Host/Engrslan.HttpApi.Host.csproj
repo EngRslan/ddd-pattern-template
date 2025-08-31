@@ -18,6 +18,7 @@
       <ProjectReference Include="..\Application\Engrslan.Application.csproj" />
       <ProjectReference Include="..\EfCore\Engrslan.EfCore.csproj" />
       <ProjectReference Include="..\HttpApi\Engrslan.HttpApi.csproj" />
+      <ProjectReference Include="..\Infrastructure\Engrslan.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
