@@ -1,4 +1,5 @@
 using System.Reflection;
+using Engrslan.Files.Entities;
 using Engrslan.Identity;
 using Engrslan.Sample.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -18,6 +19,8 @@ public class ApplicationDataContext
     //#if (IncludeSampleCode)
     public DbSet<Product> Products { get; set; } = null!;
     //#endif
+    
+    public DbSet<FileRecord> Files { get; set; } = null!;
     public ApplicationDataContext(DbContextOptions<ApplicationDataContext> options) : base(options)
     {
         
