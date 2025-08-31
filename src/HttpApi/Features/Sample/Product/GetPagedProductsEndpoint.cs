@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace Engrslan.Features.Sample.Product;
 
-public class GetPagedProductsRequest
+public class GetPagedProductsRequest : PagedRequestDto
 {
-    public int PageNumber { get; set; } = 1;
-    public int PageSize { get; set; } = 10;
     public string? SearchTerm { get; set; }
     public string? Category { get; set; }
     public bool? IsActive { get; set; }
@@ -46,7 +44,7 @@ public class GetPagedProductsEndpoint : Endpoint<GetPagedProductsRequest, PagedR
     public override async Task HandleAsync(GetPagedProductsRequest req, CancellationToken ct)
     {
         var result = await _productAppService.GetPagedAsync(
-            req.PageNumber, 
+            req.Page, 
             req.PageSize, 
             req.SearchTerm, 
             req.Category, 

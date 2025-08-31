@@ -3,6 +3,7 @@ using Engrslan.Binders;
 using Engrslan.DependencyInjection;
 using Engrslan.Middleware;
 using Engrslan.Services;
+using Engrslan.Types;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -82,7 +83,7 @@ public static class HttpApiExtensions
 //#endif
     private static void ConfigureFastEndpoints(IServiceCollection services)
     {
-        // services.AddSingleton(typeof(IRequestBinder<>), typeof(EncryptedIntBinder));
+        
         services.AddFastEndpoints();
         services.AddHttpContextAccessor();
     }
@@ -227,7 +228,9 @@ public static class HttpApiExtensions
         {
             conf.Endpoints.RoutePrefix = "api";
             var encryptionService = endpoints.ServiceProvider.GetRequiredService<IEncryptionService>();
-            conf.Binding.ValueParserFor<EncryptedInt>(EncryptedInt.Parser(encryptionService));
+            conf.Binding.ValueParserFor<EncryptedInt>(Parser.ParseEncryptedInt(encryptionService));
+            conf.Binding.ValueParserFor<EncryptedInt>(Parser.ParseEncryptedLong(encryptionService));
+            conf.Serializer.Options.Converters.Add(new EncryptedIntJsonConverter(encryptionService));
         });
     }
 

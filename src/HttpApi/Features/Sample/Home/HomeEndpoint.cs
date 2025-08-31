@@ -1,22 +1,13 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Engrslan.Services;
 using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace Engrslan.Features.Sample.Home;
-
-
 public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
 {
-    private readonly IEncryptionService _encryptionService;
     private static readonly DateTime StartTime = DateTime.UtcNow;
-
-    public HomeEndpoint(IEncryptionService encryptionService)
-    {
-        _encryptionService = encryptionService;
-    }
     public override void Configure()
     {
         Get("/home");
@@ -37,7 +28,6 @@ public class HomeEndpoint : EndpointWithoutRequest<HomeResponse>
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-
         var response = new HomeResponse
         {
             Message = "Welcome to Engrslan API - Domain Driven Design Template",
