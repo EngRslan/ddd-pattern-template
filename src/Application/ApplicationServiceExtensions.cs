@@ -1,7 +1,9 @@
 using System.Reflection;
 using Engrslan.DependencyInjection;
 using Engrslan.Events;
+using Engrslan.Services;
 using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Engrslan;
@@ -23,6 +25,13 @@ public static class ApplicationServiceExtensions
         
         // Auto-register all event handlers from this assembly
         services.AddEventHandlersFromAssembly(Assembly.GetExecutingAssembly());
+        
+        // Add Encryption Service
+        services.AddSingleton<IEncryptionService>((c) =>
+        {
+            var configurations = c.GetRequiredService<IConfiguration>();
+            return new EncryptionService(configurations["Encryption:DefaultKey"],configurations["Encryption:DefaultIV"]);
+        });
         
         return services;
     }
