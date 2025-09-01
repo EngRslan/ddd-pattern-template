@@ -4,7 +4,7 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace Engrslan.Features.Sample.Product;
+namespace Engrslan.Product;
 
 public class CreateProductEndpoint : Endpoint<CreateProductDto, ProductDto>
 {

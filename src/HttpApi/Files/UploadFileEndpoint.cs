@@ -17,9 +17,18 @@ public class UploadFileEndpoint : Endpoint<UploadFileRequest,FileRecordDto>
     public override void Configure()
     {
         Post("/files");
-        Options(o=>o.WithTags("Files").WithName("Upload File").WithDescription("Upload a temp file to the server."));
         AllowAnonymous();
         AllowFileUploads();
+        Options(o=>o.WithTags("Files").WithName("UploadFile"));
+        Summary(x =>
+        {
+            x.Summary = "Upload a file";
+            x.Description = "Uploads a file to the server";
+            x.Responses[200] = "Success - Returns the uploaded file metadata";
+            x.Responses[400] = "Bad Request - Invalid input";
+        });
+        
+        
     }
 
     public override async Task HandleAsync(UploadFileRequest req, CancellationToken ct)

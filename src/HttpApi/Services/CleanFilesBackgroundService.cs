@@ -27,9 +27,10 @@ public class CleanFilesBackgroundService : BackgroundService
             using (var scope = _serviceProvider.CreateScope())
             {
                 var services = scope.ServiceProvider.GetRequiredService<IFileRecordAppService>();
-                await services.Purge(stoppingToken);
-                await Task.Delay(_purgeTemporaryFilesInterval, stoppingToken);
+                var count = await services.Purge(stoppingToken);
+                _logger.LogInformation("{count} Files cleaned", count);
             }
+            await Task.Delay(_purgeTemporaryFilesInterval, stoppingToken);
         }
     }
 }

@@ -3,6 +3,7 @@ using Engrslan.Binders;
 using Engrslan.DependencyInjection;
 using Engrslan.Middleware;
 using Engrslan.Services;
+using Engrslan.Swagger;
 using Engrslan.Types;
 using FastEndpoints;
 using FastEndpoints.Swagger;
@@ -107,6 +108,7 @@ public static class HttpApiExtensions
                 s.Version = "v1";
                 s.Description = "Domain-Driven Design Template API Documentation";
                 s.DocumentName = "v1";
+                s.SchemaSettings.SchemaProcessors.Add(new DefaultSchemaProcessor());
                 //#if(UseIdentity)
                 AddOAuth2SecurityScheme(s, configuration);
                 //#endif

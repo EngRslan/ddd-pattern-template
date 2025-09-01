@@ -15,19 +15,19 @@ public static class EfCoreExtensions
             builder.HasKey(nameof(IEntity.Id));
         }
 
-        if (typeof(ICreationAuditedEntity<>).IsAssignableFrom(builder.Metadata.ClrType))
+        if (typeof(ICreationAuditedEntity).IsAssignableFrom(builder.Metadata.ClrType))
         {
             builder.Property(nameof(ICreationAuditedEntity.CreatedAt)).IsRequired().HasDefaultValueSql("GETDATE()");
             builder.Property(nameof(ICreationAuditedEntity.CreatedBy)).IsRequired(false);
         }
 
-        if (typeof(IAuditedEntity<>).IsAssignableFrom(builder.Metadata.ClrType))
+        if (typeof(IAuditedEntity).IsAssignableFrom(builder.Metadata.ClrType))
         {
             builder.Property(nameof(IAuditedEntity.ModifiedAt)).IsRequired(false);
             builder.Property(nameof(IAuditedEntity.ModifiedBy)).IsRequired(false);
         }
         
-        if (typeof(IFullAuditedEntity<>).IsAssignableFrom(builder.Metadata.ClrType))
+        if (typeof(IFullAuditedEntity).IsAssignableFrom(builder.Metadata.ClrType))
         {
             builder.Property(nameof(IFullAuditedEntity.IsDeleted)).HasDefaultValue(false);
             builder.Property(nameof(IFullAuditedEntity.DeletedAt)).IsRequired(false);
@@ -35,7 +35,7 @@ public static class EfCoreExtensions
             builder.HasQueryFilter(e => EF.Property<bool>(e, nameof(IFullAuditedEntity.IsDeleted)) == false);
         }
 
-        if (typeof(IAggregateRoot<>).IsAssignableFrom(builder.Metadata.ClrType))
+        if (typeof(IAggregateRoot).IsAssignableFrom(builder.Metadata.ClrType))
         {
             builder.Ignore(nameof(IAggregateRoot.DomainEvents));
         }

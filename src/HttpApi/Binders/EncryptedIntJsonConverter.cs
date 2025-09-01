@@ -15,10 +15,12 @@ public static class Parser
         {
             if (c.Count == 0 || string.IsNullOrWhiteSpace(c[0]))
                 return new ParseResult(false, "Value is required");
+            
+            var value = c[0]!.Trim(); 
 
             try
             {
-                var decrypted = encryptionService.DecryptAESToInt(c[0]!.FromBase64UrlSafe());
+                var decrypted = encryptionService.DecryptAESToInt(value.FromBase64UrlSafe());
                 return new ParseResult(true, new EncryptedInt(decrypted));
             }
             catch
@@ -34,10 +36,10 @@ public static class Parser
         {
             if (c.Count == 0 || string.IsNullOrWhiteSpace(c[0]))
                 return new ParseResult(false, "Value is required");
-
+            var value = c[0]!.Trim(); 
             try
             {
-                var decrypted = encryptionService.DecryptAESToLong(c[0]!.FromBase64UrlSafe());
+                var decrypted = encryptionService.DecryptAESToLong(value.FromBase64UrlSafe());
                 return new ParseResult(true, new EncryptedLong(decrypted));
             }
             catch

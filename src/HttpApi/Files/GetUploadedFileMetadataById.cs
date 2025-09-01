@@ -23,6 +23,13 @@ public class GetUploadedFileMetadataById : Endpoint<GetUploadedFileMetadataByIdR
         Get("/files/{id}/metadata");
         AllowAnonymous();
         Options(x=>x.WithTags("Files"));
+        Summary(x =>
+        {
+            x.Summary = "Get file metadata by ID";
+            x.Description = "Gets a single file metadata by its ID";
+            x.Responses[200] = "Success - Returns the file metadata";
+            x.Responses[404] = "Not Found - File not found";
+        });
     }
 
     public override async Task HandleAsync(GetUploadedFileMetadataByIdRequest req, CancellationToken ct)

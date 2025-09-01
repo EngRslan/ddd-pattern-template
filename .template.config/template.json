@@ -118,7 +118,8 @@
           "exclude": [
             "**/Sample*.cs",
             "**/Example*.cs",
-            "**/Sample/**/*"
+            "**/Sample/**/*",
+            "src/HttpApi/Product/**"
             
           ]
         },
