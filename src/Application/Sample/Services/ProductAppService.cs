@@ -86,7 +86,7 @@ public class ProductAppService : IProductAppService, IScopedService
             CreatedAt = _dateTimeService.Now
         };
 
-        var created = await _repository.InsertAsync(product, cancellationToken);
+        var created = await _repository.InsertAsync(product,true, cancellationToken);
         
         await _eventDispatcher.DispatchAsync(new ProductCreatedEvent(created.Id, created.Name, created.Sku), cancellationToken);
         _logger.LogInformation("Product created: {ProductId} - {ProductName}", created.Id, created.Name);
@@ -116,7 +116,7 @@ public class ProductAppService : IProductAppService, IScopedService
         product.IsActive = input.IsActive;
         product.ModifiedAt = _dateTimeService.Now;
 
-        var updated = await _repository.UpdateAsync(product, cancellationToken);
+        var updated = await _repository.UpdateAsync(product,true, cancellationToken);
         
         await _eventDispatcher.DispatchAsync(new ProductUpdatedEvent(updated.Id, updated.Name), cancellationToken);
         _logger.LogInformation("Product updated: {ProductId} - {ProductName}", updated.Id, updated.Name);
@@ -134,7 +134,7 @@ public class ProductAppService : IProductAppService, IScopedService
 
         product.IsDeleted = true;
         product.DeletedAt = _dateTimeService.Now;
-        await _repository.UpdateAsync(product, cancellationToken);
+        await _repository.UpdateAsync(product,true, cancellationToken);
         
         await _eventDispatcher.DispatchAsync(new ProductDeletedEvent(id), cancellationToken);
         _logger.LogInformation("Product deleted: {ProductId}", id);
@@ -163,7 +163,7 @@ public class ProductAppService : IProductAppService, IScopedService
         product.StockQuantity = quantity;
         product.ModifiedAt = _dateTimeService.Now;
 
-        await _repository.UpdateAsync(product, cancellationToken);
+        await _repository.UpdateAsync(product,true, cancellationToken);
         
         await _eventDispatcher.DispatchAsync(new ProductStockUpdatedEvent(id, previousQuantity, quantity), cancellationToken);
         _logger.LogInformation("Product stock updated: {ProductId} from {PreviousQuantity} to {NewQuantity}", id, previousQuantity, quantity);

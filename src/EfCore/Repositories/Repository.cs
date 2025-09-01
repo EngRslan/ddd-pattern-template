@@ -87,55 +87,61 @@ public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntit
         };
     }
 
-    public virtual async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity> InsertAsync(TEntity entity, bool saveImmediately = true, CancellationToken cancellationToken = default)
     {
         await DbSet.AddAsync(entity, cancellationToken);
-        await Context.SaveChangesAsync(cancellationToken);
+        if (saveImmediately)
+            await Context.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
-    public virtual async Task<IEnumerable<TEntity>> InsertRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+    public virtual async Task<IEnumerable<TEntity>> InsertRangeAsync(IEnumerable<TEntity> entities, bool saveImmediately = true, CancellationToken cancellationToken = default)
     {
         var entityList = entities.ToList();
         await DbSet.AddRangeAsync(entityList, cancellationToken);
-        await Context.SaveChangesAsync(cancellationToken);
+        if (saveImmediately)
+            await Context.SaveChangesAsync(cancellationToken);
         return entityList;
     }
 
-    public virtual async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity, bool saveImmediately = true, CancellationToken cancellationToken = default)
     {
         DbSet.Update(entity);
-        await Context.SaveChangesAsync(cancellationToken);
+        if (saveImmediately)
+            await Context.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
-    public virtual async Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+    public virtual async Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities, bool saveImmediately = true, CancellationToken cancellationToken = default)
     {
         var entityList = entities.ToList();
         DbSet.UpdateRange(entityList);
-        await Context.SaveChangesAsync(cancellationToken);
+        if (saveImmediately)
+            await Context.SaveChangesAsync(cancellationToken);
         return entityList;
     }
 
-    public virtual async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteAsync(TEntity entity, bool saveImmediately = true, CancellationToken cancellationToken = default)
     {
         DbSet.Remove(entity);
-        await Context.SaveChangesAsync(cancellationToken);
+        if (saveImmediately)
+            await Context.SaveChangesAsync(cancellationToken);
     }
 
-    public virtual async Task DeleteAsync(TKey id, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteAsync(TKey id, bool saveImmediately = true, CancellationToken cancellationToken = default)
     {
         var entity = await GetByIdAsync(id, cancellationToken);
         if (entity != null)
         {
-            await DeleteAsync(entity, cancellationToken);
+            await DeleteAsync(entity, saveImmediately, cancellationToken);
         }
     }
 
-    public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+    public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities, bool saveImmediately = true, CancellationToken cancellationToken = default)
     {
         DbSet.RemoveRange(entities);
-        await Context.SaveChangesAsync(cancellationToken);
+        if (saveImmediately)
+            await Context.SaveChangesAsync(cancellationToken);
     }
 
     public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null, CancellationToken cancellationToken = default)
@@ -158,6 +164,11 @@ public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntit
     public virtual IQueryable<TEntity> QueryNoTracking()
     {
         return DbSet.AsNoTracking();
+    }
+
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return Context.SaveChangesAsync(cancellationToken);
     }
 }
 

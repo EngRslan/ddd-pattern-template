@@ -14,7 +14,7 @@ public class LocalFileStorageService : IFileStorageService
         _configuration = configuration;
         _encryptionService = encryptionService;
         
-        var configuredPath = _configuration["Storage:LocalFile:BasePath"];
+        var configuredPath = _configuration["Storage:LocalFile:BasePath"] ;
         _basePath = string.IsNullOrWhiteSpace(configuredPath) 
             ? Path.Combine(Directory.GetCurrentDirectory(), "Storage") 
             : Path.IsPathFullyQualified(configuredPath) 
@@ -113,7 +113,7 @@ public class LocalFileStorageService : IFileStorageService
             throw new FileNotFoundException($"File not found: {path}", fullPath);
 
         var expiry = DateTimeOffset.UtcNow.Add(validFor);
-        var token = GenerateAccessToken(path, expiry);
+        var token = GenerateAccessToken(path, expiry).ToUrlSafeBase64();
         
         var baseUrl = _configuration["Storage:LocalFile:BaseUrl"] ?? "http://localhost";
         var presignedUrl = $"{baseUrl}/storage/{path}?token={token}&expires={expiry.ToUnixTimeSeconds()}";

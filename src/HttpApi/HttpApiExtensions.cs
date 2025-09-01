@@ -196,6 +196,9 @@ public static class HttpApiExtensions
         // Auto-register services with marker interfaces
         services.AddServicesFromAssembly(Assembly.GetExecutingAssembly());
         services.AddExceptionHandler<GlobalExceptionHandler>();
+        
+        // Register cleanup files background service
+        services.AddHostedService<CleanFilesBackgroundService>();
     }
 
     private static void ConfigureMiddlewarePipeline(IApplicationBuilder app)
@@ -229,8 +232,9 @@ public static class HttpApiExtensions
             conf.Endpoints.RoutePrefix = "api";
             var encryptionService = endpoints.ServiceProvider.GetRequiredService<IEncryptionService>();
             conf.Binding.ValueParserFor<EncryptedInt>(Parser.ParseEncryptedInt(encryptionService));
-            conf.Binding.ValueParserFor<EncryptedInt>(Parser.ParseEncryptedLong(encryptionService));
+            conf.Binding.ValueParserFor<EncryptedLong>(Parser.ParseEncryptedLong(encryptionService));
             conf.Serializer.Options.Converters.Add(new EncryptedIntJsonConverter(encryptionService));
+            conf.Serializer.Options.Converters.Add(new EncryptedLongJsonConverter(encryptionService));
         });
     }
 

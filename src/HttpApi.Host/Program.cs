@@ -14,6 +14,7 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
 
+Directory.SetCurrentDirectory(AppContext.BaseDirectory);
 try
 {
     Log.Information("Starting Engrslan API Host");

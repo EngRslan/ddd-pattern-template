@@ -36,7 +36,7 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
         var currentUser = scope.GetService<ICurrentUser>();
         var dateTimeService = scope.GetRequiredService<IDateTimeService>();
         var currentUserId = ParseUserIdAsGuid(currentUser?.Id);
-        var currentTime = dateTimeService.UtcNow;
+        var currentTime = dateTimeService.Now;
 
         foreach (var entry in context.ChangeTracker.Entries())
         {
@@ -59,19 +59,19 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 
     private static void HandleAddedEntity(EntityEntry entry, Guid? userId, DateTime currentTime)
     {
-        if (entry.Entity is ICreationAuditedEntity<int> creationEntity)
+        if (entry.Entity is ICreationAuditedEntity creationEntity)
         {
             creationEntity.CreatedBy = userId;
             creationEntity.CreatedAt = currentTime;
         }
 
-        if (entry.Entity is IAuditedEntity<int> auditableEntity)
+        if (entry.Entity is IAuditedEntity auditableEntity)
         {
             auditableEntity.ModifiedBy = null;
             auditableEntity.ModifiedAt = null;
         }
 
-        if (entry.Entity is IFullAuditedEntity<int> fullAuditableEntity)
+        if (entry.Entity is IFullAuditedEntity fullAuditableEntity)
         {
             fullAuditableEntity.IsDeleted = false;
             fullAuditableEntity.DeletedBy = null;
@@ -81,22 +81,22 @@ public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
 
     private static void HandleModifiedEntity(EntityEntry entry, Guid? userId, DateTime currentTime)
     {
-        if (entry.Entity is IAuditedEntity<int> auditableEntity)
+        if (entry.Entity is IAuditedEntity auditableEntity)
         {
             auditableEntity.ModifiedBy = userId;
             auditableEntity.ModifiedAt = currentTime;
             
-            if (entry.Entity is ICreationAuditedEntity<int>)
+            if (entry.Entity is ICreationAuditedEntity)
             {
-                entry.Property(nameof(ICreationAuditedEntity<int>.CreatedBy)).IsModified = false;
-                entry.Property(nameof(ICreationAuditedEntity<int>.CreatedAt)).IsModified = false;
+                entry.Property(nameof(ICreationAuditedEntity.CreatedBy)).IsModified = false;
+                entry.Property(nameof(ICreationAuditedEntity.CreatedAt)).IsModified = false;
             }
         }
     }
 
     private static void HandleDeletedEntity(EntityEntry entry, Guid? userId, DateTime currentTime)
     {
-        if (entry.Entity is IFullAuditedEntity<int> fullAuditableEntity)
+        if (entry.Entity is IFullAuditedEntity fullAuditableEntity)
         {
             entry.State = EntityState.Modified;
             fullAuditableEntity.IsDeleted = true;

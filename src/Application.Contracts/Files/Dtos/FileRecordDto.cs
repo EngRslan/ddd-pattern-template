@@ -10,4 +10,5 @@ public class FileRecordDto : FullAuditedEntityDto<EncryptedLong>
     public long Size { get; set; }
     public string? Description { get; set; }
     public bool IsTemporary { get; set; }
+    public string? DirectLink { get; set; }
 }
